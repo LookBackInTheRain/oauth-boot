@@ -24,6 +24,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> getUsers() {
+
+        List<User> dd= this.userMapper.findByUserName("yuit");
+
         return this.userMapper.selectList(null);
     }
 }

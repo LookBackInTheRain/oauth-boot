@@ -32,7 +32,7 @@ public class DbConfig {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    /*
+    /**
     * <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="10" />
         <property name="minIdle" value="30" />

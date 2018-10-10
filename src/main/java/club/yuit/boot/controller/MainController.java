@@ -35,4 +35,9 @@ public class MainController {
         return "index:"+users.toString();
     }
 
+    @GetMapping("/other")
+    public String other(){
+        return "other";
+    }
+
 }

@@ -39,7 +39,7 @@ import static club.yuit.boot.response.HttpResponse.simpleResponse;
  * @modify
  * @modify time
  */
-@RestControllerAdvice
+//@RestControllerAdvice
 public final class ExceptionAdviceHandler {
 
     private final static String SERVER_ERROR_TXT = "服务器内部错误";

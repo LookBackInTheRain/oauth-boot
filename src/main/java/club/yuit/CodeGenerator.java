@@ -1,4 +1,4 @@
-package club.yuit.boot;
+package club.yuit;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
