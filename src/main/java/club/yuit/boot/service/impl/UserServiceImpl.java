@@ -16,7 +16,7 @@ import java.util.List;
  * @modify time
  **/
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends BaseServiceImpl<User>  implements IUserService  {
 
     @Autowired
     private UserMapper userMapper;
@@ -25,8 +25,15 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<User> getUsers() {
 
-        List<User> dd= this.userMapper.findByUserName("yuit");
+        User dd= this.userMapper.findByUserName("yuit");
 
         return this.userMapper.selectList(null);
     }
+
+    @Override
+    public User findByUserName(String userName) {
+        return this.userMapper.findByUserName(userName);
+    }
+
+
 }

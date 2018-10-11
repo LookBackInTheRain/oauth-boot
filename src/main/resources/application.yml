@@ -7,7 +7,7 @@ spring:
 # mysql 配置
   datasource:
     username: root
-    password: 1233333@
+    password: asdasd@
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/boot?useUnicode=true&characterEncoding=utf-8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
@@ -15,7 +15,7 @@ spring:
   redis:
     host: localhost
     port: 6379
-    password: 34554fcvcs@123+
+    password: asdasdasd@123+
     jedis:
       pool:
         max-active: 8 # 连接词最大链接数

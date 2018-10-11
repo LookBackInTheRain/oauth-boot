@@ -1,5 +1,6 @@
 package club.yuit.boot.config;
 
+import club.yuit.boot.auth.BootUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private BootUserDetailService userDetailService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,12 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(this.passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
-
+        provider.setUserDetailsService(userDetailService);
         return provider;
     }
 
-    @Bean
+    /*@Bean
     @Override
     protected UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
@@ -50,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         System.out.println("--------------------->"+userDetailsManager.loadUserByUsername("yuit").getPassword());
 
         return userDetailsManager;
-    }
+    }*/
 
     /*@Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,6 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/oauth/*").permitAll();
     }
 */
+
+
     @Override
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {

@@ -1,4 +1,4 @@
-package club.yuit.boot.config;
+package club.yuit.boot.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -37,13 +37,16 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
+        String finalSecret =   passwordEncoder.encode("123qwe");
+
         clients.inMemory()
                 .withClient("client_y")
                 .resourceIds("index")
                 .authorizedGrantTypes("password","refresh_token")
                 .scopes("select")
                 .authorities("client")
-                .secret("{bcrypt}"+passwordEncoder.encode("123qwe"));
+                .secret(finalSecret);
     }
 
     @Override
