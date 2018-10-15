@@ -12,6 +12,7 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -54,7 +55,7 @@ public final class ExceptionAdviceHandler {
 
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public BaseResponse runtimeExceptionHandler() {
+    public BaseResponse runtimeExceptionHandler(RuntimeException ex) {
         return this.serverErrorHandler();
     }
 
@@ -142,6 +143,11 @@ public final class ExceptionAdviceHandler {
         return this.authErrorHandler(2, ex.getMessage());
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public BaseResponse usernameNotFound(UsernameNotFoundException ex){
+        return baseResponse(400,ex.getMessage());
+    }
 
 
     @ExceptionHandler(value = NotAuthException.class)
