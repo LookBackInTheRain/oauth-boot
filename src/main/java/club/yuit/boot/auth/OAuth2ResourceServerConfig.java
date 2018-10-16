@@ -16,19 +16,17 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
  **/
 @Configuration
 @EnableResourceServer
-@Order(1)
+@Order(2)
 public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter{
 
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        super.configure(resources);
-    }
+
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.formLogin().and()
+        http.formLogin()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/login","/oauth/*")
+                .antMatchers("/login","/oauth/*","/client/register")
                 .permitAll()
                 .antMatchers
                         ("/swagger-ui.html/**","/webjars/**",
@@ -37,7 +35,6 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
                         "/images/**")
                 .permitAll()
                 .anyRequest()
-                .authenticated()
-                .and().csrf().disable();
+                .authenticated();
     }
 }

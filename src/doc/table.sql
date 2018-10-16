@@ -1,7 +1,6 @@
 use boot;
 
 -- 创建用户表
-
 create table user(
   id varchar(32) primary key,
   fullName varchar(80) not null ,

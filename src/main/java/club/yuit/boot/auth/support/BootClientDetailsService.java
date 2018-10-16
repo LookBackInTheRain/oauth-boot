@@ -1,4 +1,4 @@
-package club.yuit.boot.auth;
+package club.yuit.boot.auth.support;
 
 import club.yuit.boot.entity.Client;
 import club.yuit.boot.service.IClientService;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @modify time
  **/
 @Component
-public class BootClientDetailsService implements ClientDetailsService {
+public final class BootClientDetailsService implements ClientDetailsService {
 
     @Autowired
     private IClientService clientService;
@@ -30,7 +30,7 @@ public class BootClientDetailsService implements ClientDetailsService {
             throw new ClientRegistrationException("客户端不存在");
         }
 
-        return client;
+        return new BootClientDetails(client);
     }
 
 }

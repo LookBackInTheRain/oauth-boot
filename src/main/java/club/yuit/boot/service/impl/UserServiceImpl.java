@@ -3,6 +3,7 @@ package club.yuit.boot.service.impl;
 import club.yuit.boot.entity.User;
 import club.yuit.boot.mapper.UserMapper;
 import club.yuit.boot.service.IUserService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @modify time
  **/
 @Service
-public class UserServiceImpl extends BaseServiceImpl<User>  implements IUserService  {
+public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUserService  {
 
     @Autowired
     private UserMapper userMapper;

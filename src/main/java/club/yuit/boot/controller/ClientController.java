@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 /**
  * @author yuit
@@ -30,12 +31,13 @@ public class ClientController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping
-    public BaseResponse addClient(@RequestBody @Valid Client client){
+    @PostMapping("/register")
+    public BaseResponse clientRegistered(@RequestBody @Valid Client client){
 
         client.setClientSecret(passwordEncoder.encode(client.getClientSecret()));
 
-       int i= clientService.insert(client);
+
+       boolean i= clientService.save(client);
        return HttpResponse.baseResponse(200);
     }
 

@@ -1,6 +1,7 @@
 package club.yuit.boot.mapper;
 
 import club.yuit.boot.entity.Client;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @modify time
  **/
 @Repository
-public interface ClientMapper extends BootBaseMapper<Client> {
+public interface ClientMapper extends BaseMapper<Client> {
 
 
     @Select("select * from clients where clientId=#{id}")

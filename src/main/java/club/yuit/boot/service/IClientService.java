@@ -1,6 +1,7 @@
 package club.yuit.boot.service;
 
 import club.yuit.boot.entity.Client;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Service;
  * @modify time
  **/
 
-public interface IClientService extends IBaseService<Client> {
+public interface IClientService extends IService<Client> {
     Client findClientByClientId(@Param("id") String clientId);
 }

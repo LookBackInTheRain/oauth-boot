@@ -17,7 +17,7 @@ import java.util.List;
  * @modify time
  **/
 @Repository
-public interface UserMapper extends BootBaseMapper<User> {
+public interface UserMapper extends BaseMapper<User> {
 
     @Select("select * from user where username=#{u1}")
     User findByUserName(@Param("u1") String username);

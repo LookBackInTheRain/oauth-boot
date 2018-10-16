@@ -24,7 +24,7 @@ import java.util.Set;
  **/
 @Data
 @TableName("clients")
-public class Client implements ClientDetails {
+public class Client  {
 
     @TableId
     private String id;
@@ -59,69 +59,4 @@ public class Client implements ClientDetails {
     @NotNull
     private Integer refreshTokenValiditySeconds;
 
-    @Override
-    public String getClientId() {
-        return this.clientId;
-    }
-
-    @Override
-    public Set<String> getResourceIds() {
-        return  CommonUtils.transformStringToSet(this.resourceIds,String.class);
-    }
-
-    @Override
-    public boolean isSecretRequired() {
-        return this.isSecretRequired;
-    }
-
-    @Override
-    public String getClientSecret() {
-        return this.clientSecret;
-    }
-
-    @Override
-    public boolean isScoped() {
-        return this.isScoped;
-    }
-
-    @Override
-    public Set<String> getScope() {
-        return  CommonUtils.transformStringToSet(this.scope,String.class);
-    }
-
-    @Override
-    public Set<String> getAuthorizedGrantTypes() {
-        return CommonUtils.transformStringToSet(this.authorizedGrantTypes,String.class);
-    }
-
-    @Override
-    public Set<String> getRegisteredRedirectUri() {
-        return  CommonUtils.transformStringToSet(this.registeredRedirectUri,String.class);
-    }
-
-    @Override
-    public List<GrantedAuthority> getAuthorities() {
-        return (this.authorities!=null&&this.authorities.trim().length()>0)
-                ?AuthorityUtils.commaSeparatedStringToAuthorityList(this.authorities):null;
-    }
-
-    @Override
-    public Integer getAccessTokenValiditySeconds() {
-        return this.accessTokenValiditySeconds;
-    }
-
-    @Override
-    public Integer getRefreshTokenValiditySeconds() {
-        return this.refreshTokenValiditySeconds;
-    }
-
-    @Override
-    public boolean isAutoApprove(String scope) {
-        return this.isAutoApprove;
-    }
-
-    @Override
-    public Map<String, Object> getAdditionalInformation() {
-        return null;
-    }
 }

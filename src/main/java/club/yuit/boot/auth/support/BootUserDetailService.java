@@ -1,4 +1,4 @@
-package club.yuit.boot.auth;
+package club.yuit.boot.auth.support;
 
 import club.yuit.boot.entity.User;
 import club.yuit.boot.mapper.UserMapper;
@@ -24,7 +24,7 @@ import java.util.List;
  * @modify time
  **/
 @Component
-public class BootUserDetailService implements UserDetailsService {
+public final class BootUserDetailService implements UserDetailsService {
 
     @Autowired
     private IUserService userService;

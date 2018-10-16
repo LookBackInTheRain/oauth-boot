@@ -2,6 +2,7 @@ package club.yuit.boot.service;
 
 import club.yuit.boot.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @modify by
  * @modify time
  **/
-public interface IUserService extends IBaseService<User>{
+public interface IUserService  extends IService<User> {
 
     /**
      * 获取所有用户
