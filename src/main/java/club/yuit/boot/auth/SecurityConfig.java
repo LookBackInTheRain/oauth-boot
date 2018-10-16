@@ -23,7 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @modify time
  **/
 @Configuration
-
+@Order(2)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

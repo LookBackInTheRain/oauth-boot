@@ -19,6 +19,7 @@ import java.util.*;
  * @modify by
  * @modify time
  **/
+@SuppressWarnings("all")
 public final class CommonUtils {
 
     public static String stringFormat(String target, Object... source) {
@@ -49,6 +50,44 @@ public final class CommonUtils {
     public static List transformStringToList(String str, Class type) {
 
         List<? super Object> parameters = new ArrayList<>();
+
+        String[] tmps = str.trim().split(",");
+
+        String typeName = type.getSimpleName();
+
+        switch (typeName) {
+            case "Byte":
+                for (String item : tmps) {
+                    try {
+                        Byte var1 = Byte.parseByte(item);
+                        parameters.add(var1);
+                    } catch (Exception e) {
+                        throw e;
+                    }
+                }
+                break;
+            case "Long":
+                for (String item : tmps) {
+                    try {
+                        Long var1 = Long.parseLong(item);
+                        parameters.add(var1);
+                    } catch (Exception e) {
+                        throw e;
+                    }
+                }
+            default:
+                for (String item : tmps) {
+                    parameters.add(item);
+                }
+        }
+
+        return parameters;
+    }
+
+
+    public static Set transformStringToSet(String str, Class type) {
+
+        Set<? super Object> parameters = new HashSet<>();
 
         String[] tmps = str.trim().split(",");
 

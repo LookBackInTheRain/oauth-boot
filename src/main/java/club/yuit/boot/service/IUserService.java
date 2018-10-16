@@ -2,6 +2,7 @@ package club.yuit.boot.service;
 
 import club.yuit.boot.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

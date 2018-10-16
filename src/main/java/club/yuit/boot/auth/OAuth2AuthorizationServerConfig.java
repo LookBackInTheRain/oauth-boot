@@ -29,6 +29,9 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private BootClientDetailsService clientDetailsService;
+
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -41,8 +44,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
         String secret = passwordEncoder.encode("123qwe");
 
-        clients
-                // 客户端存储信息存储于内存中
+        clients.withClientDetails(clientDetailsService);
+                /*// 客户端存储信息存储于内存中
                 .inMemory()
                 // 客户端名称
                 .withClient("client")
@@ -53,7 +56,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 // 客户端 secret
                 .secret(secret)
                 // 授权模式
-                .authorizedGrantTypes("refresh_token","authorization_code");
+                .authorizedGrantTypes("refresh_token","authorization_code");*/
     }
 
     @Override
