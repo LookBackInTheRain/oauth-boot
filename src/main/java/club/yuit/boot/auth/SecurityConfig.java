@@ -1,11 +1,13 @@
 package club.yuit.boot.auth;
 
 import club.yuit.boot.auth.support.BootUserDetailService;
+import club.yuit.boot.auth.support.handler.BootLoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
 
 /**
  * @author yuit
@@ -22,11 +25,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @modify time
  **/
 @Configuration
-@Order(2)
+@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BootUserDetailService userDetailService;
+
 
     /**
      * 让Security 忽略这些url，不做拦截处理
@@ -47,19 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailService);
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .formLogin()
-                .loginProcessingUrl("/api/login")
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/login")
-                .permitAll()
-                .and()
-                .authorizeRequests()
-                .anyRequest().authenticated();
-    }
 
     @Override
     @Bean
@@ -71,5 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
 }
