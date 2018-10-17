@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>club.yuit</groupId>
-    <artifactId>boot</artifactId>
+    <artifactId>oauth-boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>boot</name>
+    <name>oauth-boot</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
