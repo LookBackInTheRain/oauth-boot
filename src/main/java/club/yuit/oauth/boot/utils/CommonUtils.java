@@ -1,7 +1,6 @@
 package club.yuit.oauth.boot.utils;
 
-import com.sun.javafx.binding.StringFormatter;
-import javafx.beans.binding.StringExpression;
+
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -22,10 +21,10 @@ import java.util.*;
 @SuppressWarnings("all")
 public final class CommonUtils {
 
-    public static String stringFormat(String target, Object... source) {
+    /*public static String stringFormat(String target, Object... source) {
         StringExpression expression = StringFormatter.format(target, source);
         return expression.getValue();
-    }
+    }*/
 
     public static Date dateFormat(String dateStr) {
 

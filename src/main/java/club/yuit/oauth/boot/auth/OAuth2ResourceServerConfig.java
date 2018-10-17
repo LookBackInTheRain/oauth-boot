@@ -30,14 +30,16 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                // 登录成功处理
-                .successHandler(bootLoginSuccessHandler)
-                .and()
-                .requestMatchers().anyRequest()
+        http
+                .requestMatchers()
+                .anyRequest()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/oauth/**","/login").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/login","/oauth/**")
+                .permitAll()
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated();
     }
 }

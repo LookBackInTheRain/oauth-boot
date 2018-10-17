@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("club.yuit.boot.mapper")
+@MapperScan("club.yuit.oauth.boot.mapper")
 public class BootApplication {
 
     public static void main(String[] args) {
