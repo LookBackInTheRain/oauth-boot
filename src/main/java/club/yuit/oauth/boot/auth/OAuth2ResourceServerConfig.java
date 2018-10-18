@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 
 /**
  * @author yuit
@@ -22,24 +23,25 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
     @Autowired
     private BootLoginSuccessHandler bootLoginSuccessHandler;
 
+
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         super.configure(resources);
-
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .requestMatchers()
-                .anyRequest()
-                .and()
                 .authorizeRequests()
-                .antMatchers("/login","/oauth/**")
+                .antMatchers("/login","/oauth/**","/client/register")
                 .permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated();
     }
+
+
+
 }
