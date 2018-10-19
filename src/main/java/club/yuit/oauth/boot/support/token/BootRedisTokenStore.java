@@ -1,4 +1,4 @@
-package club.yuit.oauth.boot.auth.support.token;
+package club.yuit.oauth.boot.support.token;
 
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;

@@ -1,6 +1,8 @@
 package club.yuit.oauth.boot.response;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -11,7 +13,8 @@ import java.util.List;
  * @modify
  * @modify time
  */
-@Data
+@Getter
+@Setter
 public class PageAndSortResponse extends BaseResponse {
 
     private Integer currentPage;

@@ -1,6 +1,6 @@
-package club.yuit.oauth.boot.auth;
+package club.yuit.oauth.boot.config;
 
-import club.yuit.oauth.boot.auth.support.BootUserDetailService;
+import club.yuit.oauth.boot.support.BootUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 
 /**
  * @author yuit

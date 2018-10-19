@@ -1,11 +1,8 @@
-package club.yuit.oauth.boot.auth;
+package club.yuit.oauth.boot.config.auth;
 
-import club.yuit.oauth.boot.auth.support.BootClientDetailsService;
+import club.yuit.oauth.boot.support.BootClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -13,9 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
@@ -41,8 +36,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private TokenStore tokenStore;
 
-    @Autowired
-    @Qualifier("c")
+    @Autowired(required = false)
     private JwtAccessTokenConverter converter;
 
 
@@ -77,8 +71,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         endpoints
                 /*.tokenStore(new InMemoryTokenStore())*/
                 .tokenStore(tokenStore)
-                .accessTokenConverter(converter)
                 .authenticationManager(authenticationManager);
+
+                if(this.converter!=null){
+                    endpoints.accessTokenConverter(converter);
+                }
 
     }
 

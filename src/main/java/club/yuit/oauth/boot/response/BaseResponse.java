@@ -10,7 +10,7 @@ import lombok.Data;
  * @modify time
  */
 @Data
-public class BaseResponse  {
+public  class BaseResponse  {
 
     private int status;
     private String msg;

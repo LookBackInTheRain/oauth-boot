@@ -1,13 +1,10 @@
-package club.yuit.oauth.boot.auth;
+package club.yuit.oauth.boot.config.auth;
 
-import club.yuit.oauth.boot.auth.support.handler.BootLoginSuccessHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 
 /**
  * @author yuit
@@ -20,8 +17,7 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 @EnableResourceServer
 public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter{
 
-    @Autowired
-    private BootLoginSuccessHandler bootLoginSuccessHandler;
+
 
 
 

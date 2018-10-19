@@ -1,6 +1,8 @@
 package club.yuit.oauth.boot.response;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author yuit
@@ -9,7 +11,8 @@ import lombok.Data;
  * @modify
  * @modify time
  */
-@Data
+@Getter
+@Setter
 public class SimpleResponse extends BaseResponse {
 
     private Object item;

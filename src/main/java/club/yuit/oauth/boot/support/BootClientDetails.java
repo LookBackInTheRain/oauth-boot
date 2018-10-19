@@ -1,4 +1,4 @@
-package club.yuit.oauth.boot.auth.support;
+package club.yuit.oauth.boot.support;
 
 import club.yuit.oauth.boot.entity.Client;
 import club.yuit.oauth.boot.utils.CommonUtils;
@@ -19,6 +19,7 @@ import java.util.Set;
  * @modify time
  **/
 @Data
+@SuppressWarnings("unchecked")
 public final class BootClientDetails implements ClientDetails {
 
     private Client client;
