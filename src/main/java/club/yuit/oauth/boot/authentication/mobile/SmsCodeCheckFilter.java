@@ -27,13 +27,12 @@ import java.io.IOException;
  */
 @Getter
 @Setter
-@Component
 public class SmsCodeCheckFilter extends OncePerRequestFilter {
 
-    @Autowired(required = false)
+
     private AuthenticationFailureHandler authenticationFailureHandler;
 
-    @Autowired
+
     private BootSecurityProperties properties;
 
     private boolean isDebug = false;

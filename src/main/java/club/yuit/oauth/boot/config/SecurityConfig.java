@@ -21,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @modify time
  **/
 @Configuration
-@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -49,20 +48,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.formLogin().and()
-                // 禁用session
-                .sessionManagement()
-                .disable()
-                // 禁用 basic 登录
-                .httpBasic()
-                .disable()
-                .requestMatchers()
-                .anyRequest()
-                .and()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated();
+       http.formLogin()
+               .and()
+               .authorizeRequests()
+               .antMatchers("/oauth/authorize**","/oauth/confirm_access**")
+               .authenticated()
+               .anyRequest()
+               .permitAll();
     }
+
 
     @Override
     @Bean
