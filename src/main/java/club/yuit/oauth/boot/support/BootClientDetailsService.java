@@ -26,8 +26,6 @@ public final class BootClientDetailsService implements ClientDetailsService {
 
         Client client = this.clientService.findClientByClientId(clientId);
 
-        System.out.println("-------------------------------------->");
-
         if(client==null){
             throw new ClientRegistrationException("客户端不存在");
         }

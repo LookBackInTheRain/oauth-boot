@@ -46,10 +46,13 @@ public class CoreConfig extends WebMvcConfigurationSupport {
      * Could not resolve view with name 'forward:/oauth/confirm_access' in servlet with name 'dispatcherServlet'
      * @param registry
      */
-    @Override
+    /*@Override
     protected void configureViewResolvers(ViewResolverRegistry registry) {
+
+
+
         registry.viewResolver(new InternalResourceViewResolver());
-    }
+    }*/
 
     @Bean
     public Docket docket() {

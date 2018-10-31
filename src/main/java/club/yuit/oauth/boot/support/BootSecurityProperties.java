@@ -5,6 +5,7 @@ import club.yuit.oauth.boot.support.properities.BootLogLevelProperties;
 import club.yuit.oauth.boot.support.properities.BootSmsCodeProperties;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -19,13 +20,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "boot.oauth")
-@Getter @Setter
 public class BootSecurityProperties {
+
+
 
     /**
      * 定义token存储类型
      */
     private TokenStoreType tokenStoreType = TokenStoreType.memory;
+
+    private String loginProcessUrl="/authorize";
 
     /**
      * 日志输出等级，默认 INFO {@NestedConfigurationProperty} 生成嵌套类的配置元数据信息
@@ -37,5 +41,35 @@ public class BootSecurityProperties {
     @NestedConfigurationProperty
     private BootSmsCodeProperties sms =  new BootSmsCodeProperties();
 
+    public TokenStoreType getTokenStoreType() {
+        return tokenStoreType;
+    }
 
+    public void setTokenStoreType(TokenStoreType tokenStoreType) {
+        this.tokenStoreType = tokenStoreType;
+    }
+
+    public String getLoginProcessUrl() {
+        return loginProcessUrl;
+    }
+
+    public void setLoginProcessUrl(String loginProcessUrl) {
+        this.loginProcessUrl = loginProcessUrl;
+    }
+
+    public BootLogLevelProperties getLogging() {
+        return logging;
+    }
+
+    public void setLogging(BootLogLevelProperties logging) {
+        this.logging = logging;
+    }
+
+    public BootSmsCodeProperties getSms() {
+        return sms;
+    }
+
+    public void setSms(BootSmsCodeProperties sms) {
+        this.sms = sms;
+    }
 }

@@ -61,9 +61,7 @@ public class SmsCodeCheckFilter extends OncePerRequestFilter {
                 check(new ServletWebRequest(request));
 
             }catch (VerificationCodeFailureException ex){
-
                 authenticationFailureHandler.onAuthenticationFailure(request,response,ex);
-
             }
 
 
@@ -71,8 +69,6 @@ public class SmsCodeCheckFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request,response);
         }
-
-
     }
 
     private void check(ServletWebRequest request) throws VerificationCodeFailureException{
