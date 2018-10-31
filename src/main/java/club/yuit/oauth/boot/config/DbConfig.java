@@ -54,6 +54,7 @@ public class DbConfig {
     *
     * */
     @Bean
+    @Primary
     public DataSource dataSource() {
         DruidDataSource dr = new DruidDataSource();
         dr.setUsername(this.username);

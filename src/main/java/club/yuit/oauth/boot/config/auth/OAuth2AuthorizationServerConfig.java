@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -15,6 +16,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import javax.sql.DataSource;
 
 /**
  * @author yuit
@@ -42,19 +45,20 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired(required = false)
     private JwtAccessTokenConverter converter;
 
+    @Autowired
+    private DataSource dataSource;
 
-    /*@Override
+
+    @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         // 允许表单登录
        security.allowFormAuthenticationForClients();
-    }*/
+    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-        String secret = passwordEncoder.encode("123qwe");
-
-        clients.withClientDetails(clientDetailsService);
+        clients.withClientDetails(clientDetailsService).build();
 
     }
 

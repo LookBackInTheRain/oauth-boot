@@ -31,13 +31,11 @@ public class ClientController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public BaseResponse clientRegistered(@RequestBody @Valid Client client){
+    public BaseResponse clientRegistered(@RequestBody @Valid Client client) {
 
         client.setClientSecret(passwordEncoder.encode(client.getClientSecret()));
-
-
-       boolean i= clientService.save(client);
-       return HttpResponse.baseResponse(200);
+        boolean i = clientService.save(client);
+        return HttpResponse.baseResponse(200);
     }
 
 }

@@ -93,7 +93,8 @@ public final class BootClientDetails implements ClientDetails {
 
     @Override
     public boolean isAutoApprove(String scope) {
-        return client.getIsAutoApprove();
+       return  this.client.getIsAutoApprove()==null ? false: this
+               .client.getIsAutoApprove();
     }
 
     @Override
