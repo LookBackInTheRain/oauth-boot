@@ -29,8 +29,9 @@ public final class BootClientDetailsService implements ClientDetailsService {
         if(client==null){
             throw new ClientRegistrationException("客户端不存在");
         }
+        BootClientDetails details=new BootClientDetails(client);
 
-        return new BootClientDetails(client);
+        return details;
     }
 
 }

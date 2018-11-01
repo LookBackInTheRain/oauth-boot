@@ -1,7 +1,9 @@
 package club.yuit.oauth.boot.config;
 
 import club.yuit.oauth.boot.support.BootSecurityProperties;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -43,7 +45,7 @@ public class TokenStoreConfig {
                 break;
             case redis:
                 if (factory == null) {
-                    throw new ClassNotFoundException("RedisConnectionFactory.class not fount");
+                    throw new BeanCreationException("配置Redis存储Token需要redisConnectionFactory bean，未找到");
                 }
                 store = new RedisTokenStore(factory);
                 break;
@@ -57,6 +59,7 @@ public class TokenStoreConfig {
 
     @Bean
     @Primary
+    @ConditionalOnMissingBean(JwtAccessTokenConverter.class)
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
 

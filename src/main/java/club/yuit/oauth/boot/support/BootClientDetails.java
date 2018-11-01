@@ -23,6 +23,7 @@ import java.util.Set;
 public final class BootClientDetails implements ClientDetails {
 
     private Client client;
+    private Set<String> scope;
 
     public BootClientDetails(Client client) {
         this.client = client;
@@ -59,6 +60,10 @@ public final class BootClientDetails implements ClientDetails {
 
     @Override
     public Set<String> getScope() {
+
+        this.scope = client.getScope()!=null?
+                CommonUtils.transformStringToSet(client.getScope(),String.class):null;
+
         return client.getScope()!=null?
                 CommonUtils.transformStringToSet(client.getScope(),String.class):null;
     }

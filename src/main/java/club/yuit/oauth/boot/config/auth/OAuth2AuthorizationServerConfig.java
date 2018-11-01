@@ -45,8 +45,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired(required = false)
     private JwtAccessTokenConverter converter;
 
-    @Autowired
-    private DataSource dataSource;
+
 
 
     @Override
@@ -57,15 +56,13 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-
-        clients.withClientDetails(clientDetailsService).build();
+        clients.withClientDetails(clientDetailsService);
 
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                .tokenStore(new InMemoryTokenStore())
                 .tokenStore(tokenStore)
                 .authenticationManager(authenticationManager);
 
