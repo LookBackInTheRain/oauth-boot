@@ -1,5 +1,6 @@
 package club.yuit.oauth.boot.config.auth;
 
+import club.yuit.oauth.boot.handler.BootAccessDeniedHandler;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,9 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
     private BootSecurityProperties properties;
 
     @Autowired
+    private BootAccessDeniedHandler handler;
+
+    @Autowired
     private TokenStore tokenStore;
 
     @Override
@@ -42,6 +46,7 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
                 .authorizeRequests()
                     .anyRequest()
                     .authenticated();
+        http.exceptionHandling().accessDeniedHandler(handler);
     }
 
 }

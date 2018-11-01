@@ -86,4 +86,6 @@ public class BootSecurityProperties {
     public void setTokenSigningKey(String tokenSigningKey) {
         this.tokenSigningKey = tokenSigningKey;
     }
+
+
 }
