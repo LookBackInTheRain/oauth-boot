@@ -29,7 +29,8 @@ public class BootSecurityProperties {
      */
     private TokenStoreType tokenStoreType = TokenStoreType.memory;
 
-    private String loginProcessUrl="/authorize";
+    private String loginProcessUrl="/auth/authorize";
+
 
     /**
      * 日志输出等级，默认 INFO {@NestedConfigurationProperty} 生成嵌套类的配置元数据信息
@@ -41,6 +42,11 @@ public class BootSecurityProperties {
     @NestedConfigurationProperty
     private BootSmsCodeProperties sms =  new BootSmsCodeProperties();
 
+    private String tokenSigningKey = "OAUTHBOOT@IUY09&098#UIOKNJJ-YUIT.CLUB";
+
+
+
+    /*****--------------getter  setter----------------------******/
     public TokenStoreType getTokenStoreType() {
         return tokenStoreType;
     }
@@ -71,5 +77,13 @@ public class BootSecurityProperties {
 
     public void setSms(BootSmsCodeProperties sms) {
         this.sms = sms;
+    }
+
+    public String getTokenSigningKey() {
+        return tokenSigningKey;
+    }
+
+    public void setTokenSigningKey(String tokenSigningKey) {
+        this.tokenSigningKey = tokenSigningKey;
     }
 }

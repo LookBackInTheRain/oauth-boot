@@ -1,6 +1,6 @@
 #### OAUTH-BOOT
 
-打造spring boot 基于 spring-security ，spring-security-oauth2 快速开发脚手架
+spring boot 基于 spring-security ，spring-security-oauth2 快速开发脚手架
 
 ---
 
@@ -12,6 +12,16 @@
 
 #### 配置
 
+```yaml
+boot:
+  oauth:
+    # token 存储方式，可选配置
+    token-store-type: jwt #默认为 memory， redis
+    # token签名秘钥，可选配置，默认：OAUTHBOOT@IUY09&098#UIOKNJJ-YUIT.CLUB
+    token-signing-key: 123qwe 
+    # 登录处理url 可选配置
+    login-process-url: /auth/authorize 
+```
 
 #### 依赖
 

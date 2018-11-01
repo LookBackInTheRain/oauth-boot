@@ -60,20 +60,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                // 必须配置，不然OAuth2的http配置不生效
+                // 必须配置，不然OAuth2的http配置不生效----不明觉厉
                 .requestMatchers()
-                .antMatchers("/auth/login", "/auth/authorize", "/oauth/authorize")
+                .antMatchers("/auth/login", properties.getLoginProcessUrl(), "/oauth/authorize")
                 .and()
                 .authorizeRequests()
                 // 自定义页面或处理url是，如果不配置全局允许，浏览器会提示服务器将页面转发多次
-                .antMatchers("/auth/login", "/auth/authorize")
+                .antMatchers("/auth/login", properties.getLoginProcessUrl())
                 .permitAll()
                 .anyRequest()
                 .authenticated();
 
         http.formLogin()
                 .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/authorize");
+                .loginProcessingUrl(properties.getLoginProcessUrl());
     }
 
     @Override

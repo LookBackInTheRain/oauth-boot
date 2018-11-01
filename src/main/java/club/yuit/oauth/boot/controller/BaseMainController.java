@@ -23,17 +23,16 @@ import java.util.List;
  * @modify time
  **/
 @Controller
-@RequestMapping("/auth")
 public class BaseMainController {
 
 
     @Autowired
     private BootSecurityProperties properties;
 
-    @GetMapping("/login")
+    @GetMapping("/auth/login")
     public String loginPage(Model model){
 
-        model.addAttribute("loginProcessUrl","/auth/authorize");
+        model.addAttribute("loginProcessUrl",properties.getLoginProcessUrl());
 
         return "base-login";
     }

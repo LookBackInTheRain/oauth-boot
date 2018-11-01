@@ -63,7 +63,7 @@ public class TokenStoreConfig {
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
 
-        converter.setSigningKey("123qwe");
+        converter.setSigningKey(properties.getTokenSigningKey());
 
         return converter;
     }
