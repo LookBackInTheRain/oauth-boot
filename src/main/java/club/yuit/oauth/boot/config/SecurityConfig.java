@@ -71,8 +71,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated();
 
+        // 表单登录
         http.formLogin()
+                // 页面
                 .loginPage("/auth/login")
+                // 登录处理url
                 .loginProcessingUrl(properties.getLoginProcessUrl());
     }
 

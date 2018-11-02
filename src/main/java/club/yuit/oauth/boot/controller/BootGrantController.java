@@ -1,8 +1,6 @@
 package club.yuit.oauth.boot.controller;
 
-import club.yuit.oauth.boot.support.BootClientDetails;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
-import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -21,9 +19,8 @@ import java.util.Map;
 @SessionAttributes("authorizationRequest")
 public class BootGrantController {
 
-    @RequestMapping("/oauth/confirm_access")
+    @RequestMapping("/custom/confirm_access")
     public ModelAndView getAccessConfirmation(Map<String, Object> model, HttpServletRequest request) throws Exception {
-
 
         AuthorizationRequest authorizationRequest = (AuthorizationRequest) model.get("authorizationRequest");
 

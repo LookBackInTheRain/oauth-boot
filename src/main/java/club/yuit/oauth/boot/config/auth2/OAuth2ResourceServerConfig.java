@@ -1,11 +1,10 @@
-package club.yuit.oauth.boot.config.auth;
+package club.yuit.oauth.boot.config.auth2;
 
-import club.yuit.oauth.boot.handler.BootAccessDeniedHandler;
+import club.yuit.oauth.boot.support.oauth2.BootOAuth2AuthExceptionEntryPoint;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -26,8 +25,9 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
     @Autowired
     private BootSecurityProperties properties;
 
+
     @Autowired
-    private BootAccessDeniedHandler handler;
+    private BootOAuth2AuthExceptionEntryPoint point;
 
     @Autowired
     private TokenStore tokenStore;
@@ -38,6 +38,8 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
         resources.tokenStore(tokenStore)
                 .resourceId("boot-server");
 
+        resources.authenticationEntryPoint(point);
+
     }
 
     @Override
@@ -46,7 +48,6 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
                 .authorizeRequests()
                     .anyRequest()
                     .authenticated();
-        http.exceptionHandling().accessDeniedHandler(handler);
     }
 
 }

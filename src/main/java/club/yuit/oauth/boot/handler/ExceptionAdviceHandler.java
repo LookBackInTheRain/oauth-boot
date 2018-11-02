@@ -20,6 +20,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ServerErrorException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -39,7 +40,7 @@ import static club.yuit.oauth.boot.response.HttpResponse.simpleResponse;
  * @modify
  * @modify time
  */
-//@RestControllerAdvice
+@RestControllerAdvice
 public final class ExceptionAdviceHandler {
 
     private final static String SERVER_ERROR_TXT = "服务器内部错误";
@@ -63,7 +64,10 @@ public final class ExceptionAdviceHandler {
      */
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public BaseResponse nullPointerExceptionHandler() {
+    public BaseResponse nullPointerExceptionHandler(Exception e) {
+
+        e.printStackTrace();
+
         return this.serverErrorHandler();
     }
 
@@ -187,7 +191,7 @@ public final class ExceptionAdviceHandler {
      */
     @ExceptionHandler({ConversionNotSupportedException.class, HttpMessageNotWritableException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public BaseResponse server500(HttpServletResponse resp) {
+    public BaseResponse server500(HttpServletResponse resp,Exception e) {
         return this.serverErrorHandler();
     }
 

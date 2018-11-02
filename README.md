@@ -37,3 +37,7 @@ boot:
 |hibernate-validator|6.0.13.Final|
 |MySQL|5.7.22 MySQL Community Server|
 |Redis|4.0.10|
+
+#### 项目效果
+自定义登录和授权页面效果图
+![自定义登录和授权页面效果图](https://img-blog.csdnimg.cn/20181102173054952.gif)
