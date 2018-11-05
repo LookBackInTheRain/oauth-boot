@@ -1,10 +1,12 @@
 package club.yuit.oauth.boot.config.auth2;
 
-import club.yuit.oauth.boot.handler.BootAccessDeniedHandler;
+import club.yuit.oauth.boot.filter.ClientIdCheckFilter;
+import club.yuit.oauth.boot.support.oauth2.BootAccessDeniedHandler;
 import club.yuit.oauth.boot.support.oauth2.BootClientDetailsService;
 import club.yuit.oauth.boot.support.oauth2.BootOAuth2AuthExceptionEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -53,15 +55,13 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         // 允许表单登录
         security.allowFormAuthenticationForClients();
 
-        security.accessDeniedHandler(handler);
+        security.addTokenEndpointAuthenticationFilter(new ClientIdCheckFilter());
 
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(clientDetailsService);
-
-
     }
 
     @Override
@@ -71,7 +71,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
         endpoints
                 .tokenStore(tokenStore)
-                .authenticationManager(authenticationManager);
+                .authenticationManager(authenticationManager)
+                .allowedTokenEndpointRequestMethods(HttpMethod.POST,HttpMethod.GET);
 
         if (this.converter != null) {
             endpoints.accessTokenConverter(converter);
@@ -80,8 +81,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         endpoints.exceptionTranslator(bootWebResponseExceptionTranslator);
 
         endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
-
-
 
     }
 
