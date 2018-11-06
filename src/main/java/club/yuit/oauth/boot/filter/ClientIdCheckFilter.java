@@ -65,7 +65,11 @@ public class ClientIdCheckFilter extends OncePerRequestFilter {
             }
         }
 
-        return header == null && request.getParameter("client_id") == null;
+        if(header == null && request.getParameter("client_id") != null)
+            return false;
+
+
+        return true;
     }
 
 

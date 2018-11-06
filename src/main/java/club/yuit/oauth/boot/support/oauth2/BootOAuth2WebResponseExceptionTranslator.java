@@ -1,9 +1,5 @@
 package club.yuit.oauth.boot.support.oauth2;
 
-import club.yuit.oauth.boot.response.BaseResponse;
-import club.yuit.oauth.boot.response.HttpResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +9,6 @@ import org.springframework.security.oauth2.common.DefaultThrowableAnalyzer;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InsufficientScopeException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.web.util.ThrowableAnalyzer;
 import org.springframework.stereotype.Component;
@@ -79,8 +74,7 @@ public class BootOAuth2WebResponseExceptionTranslator implements WebResponseExce
             headers.set("WWW-Authenticate", String.format("%s %s", OAuth2AccessToken.BEARER_TYPE, e.getSummary()));
         }
 
-        BootOAuth2Exception exception = (BootOAuth2Exception) e;
-
+        BootOAuth2Exception exception = new BootOAuth2Exception(e.getMessage(), e);
 
         ResponseEntity<OAuth2Exception> response = new ResponseEntity<OAuth2Exception>(exception, headers,
                 HttpStatus.valueOf(status));

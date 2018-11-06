@@ -23,8 +23,8 @@ public class BootOAuthExceptionJacksonSerializer extends StdSerializer<BootOAuth
     @Override
     public void serialize(BootOAuth2Exception value, JsonGenerator jgen, SerializerProvider serializerProvider) throws IOException {
         jgen.writeStartObject();
-        jgen.writeStringField("status", value.getOAuth2ErrorCode());
-        String errorMessage = value.getMessage();
+        jgen.writeObjectField("status", value.getHttpErrorCode());
+        String errorMessage = value.getOAuth2ErrorCode();
         if (errorMessage != null) {
             errorMessage = HtmlUtils.htmlEscape(errorMessage);
         }

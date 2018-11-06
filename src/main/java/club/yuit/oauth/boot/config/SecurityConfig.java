@@ -1,5 +1,6 @@
 package club.yuit.oauth.boot.config;
 
+import club.yuit.oauth.boot.support.BootLoginFailureHandler;
 import club.yuit.oauth.boot.support.oauth2.BootAccessDeniedHandler;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
 import club.yuit.oauth.boot.support.BootUserDetailService;
@@ -34,11 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private BootSecurityProperties properties;
 
     @Autowired
-    private BootAccessDeniedHandler handler;
-
-
-    @Autowired
-    private BootOAuth2AuthExceptionEntryPoint point;
+    private BootLoginFailureHandler handler;
 
 
     /**
@@ -78,12 +75,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 表单登录
         http.formLogin()
+                .failureHandler(handler)
                 // 页面
                 .loginPage("/auth/login")
                 // 登录处理url
                 .loginProcessingUrl(properties.getLoginProcessUrl());
 
         http.httpBasic().disable();
+
 
 
     }

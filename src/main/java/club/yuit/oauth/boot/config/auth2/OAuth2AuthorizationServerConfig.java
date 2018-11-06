@@ -4,7 +4,10 @@ import club.yuit.oauth.boot.filter.ClientIdCheckFilter;
 import club.yuit.oauth.boot.support.oauth2.BootAccessDeniedHandler;
 import club.yuit.oauth.boot.support.oauth2.BootClientDetailsService;
 import club.yuit.oauth.boot.support.oauth2.BootOAuth2AuthExceptionEntryPoint;
+import club.yuit.oauth.boot.support.oauth2.BootOAuth2WebResponseExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +19,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 /**
  * @author yuit
@@ -31,8 +35,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private WebResponseExceptionTranslator bootWebResponseExceptionTranslator;
+
 
     @Autowired
     private BootClientDetailsService clientDetailsService;
@@ -44,18 +47,27 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     private JwtAccessTokenConverter converter;
 
     @Autowired
-    private BootAccessDeniedHandler handler;
+    private AuthenticationEntryPoint authenticationEntryPoint;
+
 
     @Autowired
-    private BootOAuth2AuthExceptionEntryPoint point;
+    private WebResponseExceptionTranslator bootWebResponseExceptionTranslator;
+
 
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+
+
         // 允许表单登录
         security.allowFormAuthenticationForClients();
 
+        security.authenticationEntryPoint(authenticationEntryPoint);
+
         security.addTokenEndpointAuthenticationFilter(new ClientIdCheckFilter());
+
+        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+
 
     }
 
@@ -78,10 +90,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
             endpoints.accessTokenConverter(converter);
         }
 
+        // 处理 ExceptionTranslationFilter 抛出的异常
         endpoints.exceptionTranslator(bootWebResponseExceptionTranslator);
 
-        endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
 
+        endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
     }
 
 
