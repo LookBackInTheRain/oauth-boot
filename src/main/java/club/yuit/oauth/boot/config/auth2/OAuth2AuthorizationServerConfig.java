@@ -1,25 +1,31 @@
 package club.yuit.oauth.boot.config.auth2;
 
-import club.yuit.oauth.boot.filter.ClientIdCheckFilter;
+import club.yuit.oauth.boot.filter.BootClientCredentialsTokenEndpointFilter;
 import club.yuit.oauth.boot.support.oauth2.BootAccessDeniedHandler;
 import club.yuit.oauth.boot.support.oauth2.BootClientDetailsService;
 import club.yuit.oauth.boot.support.oauth2.BootOAuth2AuthExceptionEntryPoint;
 import club.yuit.oauth.boot.support.oauth2.BootOAuth2WebResponseExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.web.AuthenticationEntryPoint;
+
+import javax.servlet.FilterChain;
 
 /**
  * @author yuit
@@ -34,8 +40,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-
 
     @Autowired
     private BootClientDetailsService clientDetailsService;
@@ -53,7 +57,18 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     @Autowired
     private WebResponseExceptionTranslator bootWebResponseExceptionTranslator;
 
+    @Autowired
+    private SecurityProperties properties;
 
+    @Autowired
+    private ApplicationContext context;
+
+
+
+
+    public OAuth2AuthorizationServerConfig() {
+        super();
+    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -64,9 +79,12 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
         security.authenticationEntryPoint(authenticationEntryPoint);
 
-        security.addTokenEndpointAuthenticationFilter(new ClientIdCheckFilter());
-
         security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+
+
+       Object o= context.getBean("springFilterChain");
+
+
 
 
     }
@@ -78,8 +96,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
-
 
         endpoints
                 .tokenStore(tokenStore)
@@ -96,6 +112,5 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
         endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
     }
-
 
 }
