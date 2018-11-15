@@ -1,8 +1,14 @@
 package club.yuit.oauth.boot.config;
 
+import club.yuit.oauth.boot.config.auth2.BootOAuth2SecurityConfig;
+import club.yuit.oauth.boot.filter.BootClientCredentialsTokenEndpointFilter;
+import club.yuit.oauth.boot.support.BootLoginFailureHandler;
+import club.yuit.oauth.boot.support.oauth2.BootAccessDeniedHandler;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
 import club.yuit.oauth.boot.support.BootUserDetailService;
+import club.yuit.oauth.boot.support.oauth2.BootOAuth2AuthExceptionEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -10,13 +16,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
  * @author yuit
@@ -34,6 +39,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BootSecurityProperties properties;
+
+    @Autowired
+    private BootLoginFailureHandler handler;
+
+    @Autowired
+    private ClientDetailsService clientDetailsService;
+
+    @Autowired
+    BootOAuth2AuthExceptionEntryPoint authenticationEntryPoint;
+
+
+
+
+
+
 
 
     /**
@@ -73,11 +93,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 表单登录
         http.formLogin()
+                .failureHandler(handler)
                 // 页面
                 .loginPage("/auth/login")
                 // 登录处理url
                 .loginProcessingUrl(properties.getLoginProcessUrl());
+
+        http.httpBasic().disable();
+
+
+
+
+
     }
+
 
     @Override
     @Bean

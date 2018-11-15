@@ -1,9 +1,5 @@
 package club.yuit.oauth.boot.support.oauth2;
 
-import club.yuit.oauth.boot.response.BaseResponse;
-import club.yuit.oauth.boot.response.HttpResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +9,6 @@ import org.springframework.security.oauth2.common.DefaultThrowableAnalyzer;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.InsufficientScopeException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.web.util.ThrowableAnalyzer;
 import org.springframework.stereotype.Component;
@@ -32,16 +27,17 @@ public class BootOAuth2WebResponseExceptionTranslator implements WebResponseExce
 
     private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
-    @Autowired
-    private ObjectMapper objectMapper;
 
     public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
 
         // Try to extract a SpringSecurityException from the stacktrace
         Throwable[] causeChain = throwableAnalyzer.determineCauseChain(e);
+
+        // 异常栈获取 OAuth2Exception 异常
         Exception ase = (OAuth2Exception) throwableAnalyzer.getFirstThrowableOfType(
                 OAuth2Exception.class, causeChain);
 
+        // 异常栈中有OAuth2Exception
         if (ase != null) {
             return handleOAuth2Exception((OAuth2Exception) ase);
         }
@@ -49,22 +45,23 @@ public class BootOAuth2WebResponseExceptionTranslator implements WebResponseExce
         ase = (AuthenticationException) throwableAnalyzer.getFirstThrowableOfType(AuthenticationException.class,
                 causeChain);
         if (ase != null) {
-            return handleOAuth2Exception(new BootOAuth2WebResponseExceptionTranslator.UnauthorizedException(e.getMessage(), e));
+            return handleOAuth2Exception(new UnauthorizedException(e.getMessage(), e));
         }
 
         ase = (AccessDeniedException) throwableAnalyzer
                 .getFirstThrowableOfType(AccessDeniedException.class, causeChain);
         if (ase instanceof AccessDeniedException) {
-            return handleOAuth2Exception(new BootOAuth2WebResponseExceptionTranslator.ForbiddenException(ase.getMessage(), ase));
+            return handleOAuth2Exception(new ForbiddenException(ase.getMessage(), ase));
         }
 
         ase = (HttpRequestMethodNotSupportedException) throwableAnalyzer
                 .getFirstThrowableOfType(HttpRequestMethodNotSupportedException.class, causeChain);
         if (ase instanceof HttpRequestMethodNotSupportedException) {
-            return handleOAuth2Exception(new BootOAuth2WebResponseExceptionTranslator.MethodNotAllowed(ase.getMessage(), ase));
+            return handleOAuth2Exception(new MethodNotAllowed(ase.getMessage(), ase));
         }
 
-        return handleOAuth2Exception(new BootOAuth2WebResponseExceptionTranslator.ServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e));
+        // 不包含上述异常则服务器内部错误
+        return handleOAuth2Exception(new ServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), e));
     }
 
     private ResponseEntity<OAuth2Exception> handleOAuth2Exception(OAuth2Exception e) throws IOException {
@@ -77,12 +74,9 @@ public class BootOAuth2WebResponseExceptionTranslator implements WebResponseExce
             headers.set("WWW-Authenticate", String.format("%s %s", OAuth2AccessToken.BEARER_TYPE, e.getSummary()));
         }
 
-        BaseResponse baseResponse = HttpResponse.baseResponse(status);
+        BootOAuth2Exception exception = new BootOAuth2Exception(e.getMessage(), e);
 
-        String summary=e.getSummary();
-        String oauth2=e.getOAuth2ErrorCode();
-
-        ResponseEntity<OAuth2Exception> response = new ResponseEntity<OAuth2Exception>(e, headers,
+        ResponseEntity<OAuth2Exception> response = new ResponseEntity<OAuth2Exception>(exception, headers,
                 HttpStatus.valueOf(status));
 
         return response;

@@ -59,7 +59,6 @@ public class TokenStoreConfig {
 
     @Bean
     @Primary
-    @ConditionalOnMissingBean(JwtAccessTokenConverter.class)
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
 
