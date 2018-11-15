@@ -42,7 +42,7 @@ boot:
 1. 自定义登录和授权页面效果图
 ![自定义登录和授权页面效果图](https://img-blog.csdnimg.cn/20181102173054952.gif)
 
-#### 建表语句在src/table.sql中
+#### 建表语句在src/doc/table.sql中
 
 > 技术交流群 QQ: 931534231
 > 单纯的技术交流
