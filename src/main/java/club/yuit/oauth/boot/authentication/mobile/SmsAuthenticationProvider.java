@@ -1,6 +1,5 @@
 package club.yuit.oauth.boot.authentication.mobile;
 
-import jdk.nashorn.internal.runtime.logging.Logger;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Configuration;

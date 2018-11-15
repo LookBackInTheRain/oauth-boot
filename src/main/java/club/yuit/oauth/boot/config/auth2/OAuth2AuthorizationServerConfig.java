@@ -1,6 +1,6 @@
 package club.yuit.oauth.boot.config.auth2;
 
-import club.yuit.oauth.boot.filter.BootClientCredentialsTokenEndpointFilter;
+import club.yuit.oauth.boot.filter.BootBasicAuthenticationFilter;
 import club.yuit.oauth.boot.support.oauth2.BootAccessDeniedHandler;
 import club.yuit.oauth.boot.support.oauth2.BootClientDetailsService;
 import club.yuit.oauth.boot.support.oauth2.BootOAuth2AuthExceptionEntryPoint;
@@ -58,12 +58,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
     private WebResponseExceptionTranslator bootWebResponseExceptionTranslator;
 
     @Autowired
-    private SecurityProperties properties;
-
-    @Autowired
-    private ApplicationContext context;
-
-
+    private BootBasicAuthenticationFilter filter;
 
 
     public OAuth2AuthorizationServerConfig() {
@@ -77,15 +72,13 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         // 允许表单登录
         security.allowFormAuthenticationForClients();
 
+        filter.setClientDetailsService(clientDetailsService);
+
         security.authenticationEntryPoint(authenticationEntryPoint);
 
+        security.addTokenEndpointAuthenticationFilter(filter);
+
         security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
-
-
-      //Object o= context.getBean("springFilterChain");
-
-
-
 
     }
 
@@ -103,13 +96,11 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST,HttpMethod.GET);
 
         if (this.converter != null) {
-
             endpoints.accessTokenConverter(converter);
         }
 
         // 处理 ExceptionTranslationFilter 抛出的异常
         endpoints.exceptionTranslator(bootWebResponseExceptionTranslator);
-
 
         endpoints.pathMapping("/oauth/confirm_access","/custom/confirm_access");
     }

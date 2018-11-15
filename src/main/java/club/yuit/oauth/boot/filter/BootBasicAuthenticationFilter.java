@@ -39,7 +39,7 @@ import java.util.Base64;
  * @modify
  */
 @Component
-public class BootClientCredentialsTokenEndpointFilter extends OncePerRequestFilter {
+public class BootBasicAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private ClientDetailsService clientDetailsService;
