@@ -10,9 +10,10 @@ public class Main {
 
     public static void main(String[] args){
 
-        AntPathMatcher matcher = new AntPathMatcher();
+        String h = "123456";
 
-        System.out.println(matcher.match("/oauth/aa**","/oauth/aa?d=asd&asd=0"));
+        System.out.println(false||true);
+        System.out.println(true|false);
 
     }
 

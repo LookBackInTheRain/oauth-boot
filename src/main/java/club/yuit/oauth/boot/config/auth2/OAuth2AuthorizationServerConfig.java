@@ -82,7 +82,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
 
 
-       Object o= context.getBean("springFilterChain");
+      //Object o= context.getBean("springFilterChain");
 
 
 
@@ -103,6 +103,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST,HttpMethod.GET);
 
         if (this.converter != null) {
+
             endpoints.accessTokenConverter(converter);
         }
 
