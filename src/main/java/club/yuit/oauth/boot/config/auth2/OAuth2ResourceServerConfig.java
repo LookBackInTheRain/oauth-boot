@@ -47,7 +47,7 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
         http
                 .authorizeRequests()
                     .anyRequest()
-                    .access("#oauth2.hasAnyScope('all')");
+                    .access("#oauth2.hasAnyScope('all','select')");
     }
 
 
