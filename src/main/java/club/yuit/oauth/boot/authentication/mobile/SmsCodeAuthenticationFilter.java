@@ -21,7 +21,6 @@ public class SmsCodeAuthenticationFilter  extends AbstractAuthenticationProcessi
     // =====================================================================================
 
     public static final String BOOT_FORM_MOBILE_KEY = "mobile";
-    public static final String SPRING_SECURITY_FORM_PASSWORD_KEY = "password";
 
     private String mobileParameter = BOOT_FORM_MOBILE_KEY;
     private boolean postOnly = true;

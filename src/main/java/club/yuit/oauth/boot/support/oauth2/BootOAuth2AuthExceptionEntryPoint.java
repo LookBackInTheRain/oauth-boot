@@ -29,5 +29,4 @@ public class BootOAuth2AuthExceptionEntryPoint extends OAuth2AuthenticationEntry
         HttpUtils.writerError(HttpResponse.baseResponse(HttpStatus.UNAUTHORIZED.value(),e.getMessage()),response);
     }
 
-
 }

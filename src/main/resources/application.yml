@@ -9,15 +9,15 @@ spring:
   # mysql 配置
   datasource:
     username: root
-    password: YuitMysql@123+
+    password: jhlroot
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://39.108.127.211:3306/boot?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/boot?useUnicode=true&characterEncoding=utf-8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
   #redis 配置
   redis:
-    host: 39.108.127.211
+    host: localhost
     port: 6379
-    password: YuitRedis@123+
+    password: opLjredis00
     jedis:
       pool:
         max-active: 8 # 连接词最大链接数
@@ -30,6 +30,9 @@ spring:
     prefix: classpath:/views/
     suffix: .html
     cache: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+
 
 logging.level.org.springframework.security: DEBUG
 
