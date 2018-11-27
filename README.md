@@ -8,7 +8,7 @@ spring boot 基于 spring-security ，spring-security-oauth2 快速开发脚手�
 1. 授权码模式，密码模式，简化模式（未测试），客户端模式（未测试）
 2. JWT 
 3. 自定义登录页面和授权页面
-4. 自定义异常处理（完善中）
+4. 自定义异常处理
 
 #### 配置
 
