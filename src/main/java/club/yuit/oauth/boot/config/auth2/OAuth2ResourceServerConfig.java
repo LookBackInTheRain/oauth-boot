@@ -46,6 +46,8 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                    .antMatchers("/favicon.ico")
+                    .permitAll()
                     .anyRequest()
                     .access("#oauth2.hasAnyScope('all','select')");
     }
