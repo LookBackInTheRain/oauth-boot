@@ -23,6 +23,15 @@ boot:
     login-process-url: /auth/authorize 
 ```
 
+#### 授权马模式
+    
+   1. 请求授权 http://ip:port/oauth/authorize?response_type=code&client_id=client&client_secret=123qwe&redirect_uri=http://localhost:9000&scope=select
+   2. 如果没有登录会跳转到登录页面，登录后悔跳转到授权页面（是否会跳转到授权页面取决于是否将isAutoApprove字段的值 ）
+   3. 授权后悔得到一个授权码，拿着授权码即可申请token
+
+#### 密码模式
+   没有配置允许客户端表单登录的，将客户端id和密码base64编码放入请求头中，根据oauth2协议规定的密码模式正确填写参数即可申请token
+
 #### 依赖
 
 |框架/类库/数据库|   版本号 |
@@ -43,6 +52,14 @@ boot:
 ![自定义登录和授权页面效果图](https://img-blog.csdnimg.cn/20181102173054952.gif)
 
 #### 建表语句在src/doc/table.sql中
+    
+   相关的测试数据也在这个sql文件中，加密的密码统一为123qwe
+
+#### 注
+
+   请使用上述依赖所规定的版本
 
 > 技术交流群 QQ: 931534231
 > 单纯的技术交流
+
+
