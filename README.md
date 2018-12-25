@@ -1,6 +1,6 @@
 #### OAUTH-BOOT
 
-spring boot 基于 spring-security ，spring-security-oauth2 快速开发脚手架
+spring-security ，spring-security-oauth2 ，string boot 学习
 
 ---
 
