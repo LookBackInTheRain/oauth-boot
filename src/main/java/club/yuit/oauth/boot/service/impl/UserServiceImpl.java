@@ -11,10 +11,8 @@ import java.util.List;
 
 /**
  * @author yuit
- * @create time 2018/10/9  16:56
- * @description
- * @modify by
- * @modify time
+ * @date  2018/10/9  16:56
+ *
  **/
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUserService {

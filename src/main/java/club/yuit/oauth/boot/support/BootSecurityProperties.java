@@ -12,10 +12,10 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @auther yuit
- * @create 2018/10/19 9:44
- * @description
- * @modify
+ * @author yuit
+ * @date  2018/10/19 9:44
+ *
+ * 配置
  */
 @Configuration
 @EnableConfigurationProperties

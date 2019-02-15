@@ -8,10 +8,8 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author yuit
- * @create time 2018/10/16  10:02
- * @description
- * @modify by
- * @modify time
+ * @date 2018/10/16  10:02
+ *
  **/
 @Repository
 public interface ClientMapper extends BaseMapper<Client> {

@@ -2,10 +2,8 @@ package club.yuit.oauth.boot.exception;
 
 /**
  * @author yuit
- * @create Time 2018/8/6 15:56
- * @description 参数不正确
- * @modify by
- * @modify time
+ * @date  2018/8/6 15:56
+ *  参数不正确
  **/
 public class ArgumentsFailureException extends RuntimeException {
 

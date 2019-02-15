@@ -19,10 +19,7 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 
 /**
  * @author yuit
- * @create time 2018/10/10  11:48
- * @description
- * @modify by
- * @modify time
+ * @date 2018/10/10  11:48
  **/
 @Configuration
 @Order(1)

@@ -11,9 +11,8 @@ import java.util.Map;
 
 /**
  * @author yuit
- * @create 2018/11/1 11:44
- * @description
- * @modify
+ * @date 2018/11/1 11:44
+ *
  */
 @Controller
 @SessionAttributes("authorizationRequest")
@@ -24,10 +23,12 @@ public class BootGrantController {
 
         AuthorizationRequest authorizationRequest = (AuthorizationRequest) model.get("authorizationRequest");
 
+
         ModelAndView view = new ModelAndView();
         view.setViewName("base-grant");
 
         view.addObject("clientId", authorizationRequest.getClientId());
+        view.addObject("scopes",authorizationRequest.getScope());
 
         return view;
     }

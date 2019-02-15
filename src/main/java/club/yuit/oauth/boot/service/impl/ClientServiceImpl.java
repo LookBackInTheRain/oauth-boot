@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author yuit
- * @create time 2018/10/16  10:06
- * @description
- * @modify by
- * @modify time
+ * @date 2018/10/16  10:06
+ *
  **/
 @Service
 public class ClientServiceImpl extends ServiceImpl<ClientMapper,Client> implements IClientService {

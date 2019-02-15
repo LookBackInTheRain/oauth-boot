@@ -11,10 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * @auther yuit
- * @create 2018/10/19 15:33
- * @description
- * @modify
+ * @author yuit
+ * @date 2018/10/19 15:33
  */
 @Getter
 @Setter

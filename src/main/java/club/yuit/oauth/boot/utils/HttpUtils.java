@@ -8,9 +8,8 @@ import java.io.IOException;
 
 /**
  * @author yuit
- * @create 2018/11/5 16:34
- * @description
- * @modify
+ * @date 2018/11/5 16:34
+ *
  */
 public class HttpUtils {
 

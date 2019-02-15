@@ -5,9 +5,8 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
  * @author yuit
- * @create 2018/11/5 18:00
- * @description
- * @modify
+ * @date 2018/11/5 18:00
+ *
  */
 @JsonSerialize(using = BootOAuthExceptionJacksonSerializer.class)
 public class BootOAuth2Exception extends OAuth2Exception {

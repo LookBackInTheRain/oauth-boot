@@ -4,10 +4,8 @@ import lombok.Data;
 
 /**
  * @author yuit
- * @create time  2018/3/30 20:37
- * @description 基础通用返回体
- * @modify
- * @modify time
+ * @date   2018/3/30 20:37
+ *
  */
 @Data
 public  class BaseResponse  {

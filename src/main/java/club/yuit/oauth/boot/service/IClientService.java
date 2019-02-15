@@ -6,10 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * @author yuit
- * @create time 2018/10/16  10:03
- * @description
- * @modify by
- * @modify time
+ * @date 2018/10/16  10:03
+ *
  **/
 
 public interface IClientService extends IService<Client> {

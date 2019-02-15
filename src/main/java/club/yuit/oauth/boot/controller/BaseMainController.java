@@ -17,10 +17,8 @@ import java.util.List;
 
 /**
  * @author yuit
- * @create time 2018/10/9  15:09
- * @description
- * @modify by
- * @modify time
+ * @date  2018/10/9  15:09
+ *
  **/
 @Controller
 public class BaseMainController {

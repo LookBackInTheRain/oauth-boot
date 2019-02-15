@@ -4,6 +4,8 @@ spring-security ，spring-security-oauth2 ，string boot 学习
 
 ---
 
+### 更新
+
 #### 目前功能
 1. 授权码模式，密码模式，简化模式（未测试），客户端模式（未测试）
 2. JWT 
@@ -54,7 +56,7 @@ boot:
 #### 建表语句在src/doc/table.sql中
     
    相关的测试数据也在这个sql文件中，加密的密码统一为123qwe
-
+   
 #### 注
 
    请使用上述依赖所规定的版本

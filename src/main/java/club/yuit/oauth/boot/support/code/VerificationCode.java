@@ -3,10 +3,9 @@ package club.yuit.oauth.boot.support.code;
 import lombok.Data;
 
 /**
- * @auther yuit
- * @create 2018/10/19 10:42
- * @description
- * @modify
+ * @author yuit
+ * @date 2018/10/19 10:42
+ *
  */
 @Data
 public  class VerificationCode {

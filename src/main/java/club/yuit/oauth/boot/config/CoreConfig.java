@@ -27,10 +27,7 @@ import java.util.List;
 
 /**
  * @author yuit
- * @create time 2018/10/9  15:08
- * @description
- * @modify by
- * @modify time
+ * @date  2018/10/9  15:08
  **/
 @Configuration
 @EnableSwagger2
@@ -44,13 +41,10 @@ public class CoreConfig extends WebMvcConfigurationSupport {
 
     /**
      * Could not resolve view with name 'forward:/oauth/confirm_access' in servlet with name 'dispatcherServlet'
-     * @param registry
+     *
      */
     /*@Override
     protected void configureViewResolvers(ViewResolverRegistry registry) {
-
-
-
         registry.viewResolver(new InternalResourceViewResolver());
     }*/
 

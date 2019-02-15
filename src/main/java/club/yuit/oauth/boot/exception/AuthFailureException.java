@@ -2,10 +2,8 @@ package club.yuit.oauth.boot.exception;
 
 /**
  * @author yuit
- * @create Time 2018/8/6 15:56
- * @description 认证失败
- * @modify by
- * @modify time
+ * @date  2018/8/6 15:56
+ *  认证失败
  **/
 public class AuthFailureException extends RuntimeException {
 
