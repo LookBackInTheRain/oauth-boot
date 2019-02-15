@@ -5,7 +5,7 @@ spring-security ，spring-security-oauth2 ，string boot 学习
 ---
 
 #### 更新
-  [更新说明](https://github.com/LookBackInTheRain/oauth-boot/blob/dev/README.md)
+  [更新说明](https://github.com/LookBackInTheRain/oauth-boot/blob/dev/UPDATE.md)
 #### 目前功能
 1. 授权码模式，密码模式，简化模式（未测试），客户端模式（未测试）
 2. JWT 
