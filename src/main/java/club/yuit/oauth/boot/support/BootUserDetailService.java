@@ -17,10 +17,8 @@ import java.util.List;
 
 /**
  * @author yuit
- * @create time 2018/10/11  9:13
- * @description
- * @modify by
- * @modify time
+ * @date time 2018/10/11  9:13
+ *
  **/
 @Component
 public final class BootUserDetailService implements UserDetailsService {

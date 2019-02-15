@@ -12,10 +12,8 @@ import java.util.List;
 
 /**
  * @author yuit
- * @create time 2018/10/9  15:43
- * @description
- * @modify by
- * @modify time
+ * @date 2018/10/9  15:43
+ *
  **/
 @Data
 @TableName("user")

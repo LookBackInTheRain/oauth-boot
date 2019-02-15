@@ -16,10 +16,8 @@ import java.util.Scanner;
 
 /**
  * @author yuit
- * @create time 2018/10/9  17:24
- * @description 代码生成器
- * @modify by
- * @modify time
+ * @date  2018/10/9  17:24
+ *  代码生成器
  **/
 public class CodeGenerator {
 

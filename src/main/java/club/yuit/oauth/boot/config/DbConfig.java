@@ -14,10 +14,8 @@ import javax.sql.DataSource;
 
 /**
  * @author yuit
- * @create time 2018/10/9  15:14
- * @description
- * @modify by
- * @modify time
+ * @date time 2018/10/9  15:14
+ *
  **/
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")

@@ -8,10 +8,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import java.io.Serializable;
 
 /**
- * @auther yuit
- * @create 2018/10/19 16:30
- * @description
- * @modify
+ * @author yuit
+ * @date 2018/10/19 16:30
+ *
  */
 @Getter
 @Setter

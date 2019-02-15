@@ -13,10 +13,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 /**
  * @author yuit
- * @create time 2018/10/15  14:57
- * @description
- * @modify by
- * @modify time
+ * @date  2018/10/15  14:57
  **/
 @Configuration
 @EnableResourceServer

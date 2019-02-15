@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @auther yuit
- * @create 2018/10/19 15:24
- * @description
- * @modify
+ * @author yuit
+ * @date 2018/10/19 15:33
  */
 public class SmsCodeAuthenticationFilter  extends AbstractAuthenticationProcessingFilter {
     // ~ Static fields/initializers

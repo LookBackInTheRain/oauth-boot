@@ -14,9 +14,7 @@ import java.util.*;
 /**
  * @author yuit
  * @create Time 2018/8/7 14:56
- * @description
- * @modify by
- * @modify time
+ *
  **/
 @SuppressWarnings("all")
 public final class CommonUtils {

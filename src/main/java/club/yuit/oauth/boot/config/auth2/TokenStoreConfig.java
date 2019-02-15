@@ -11,28 +11,35 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
+import javax.sql.DataSource;
+
 /**
  * @author yuit
- * @create time 2018/10/17  16:38
- * @description
- * @modify by
- * @modify time
+ * @date  2018/10/17  16:38
  **/
 @Configuration
 public class TokenStoreConfig {
 
-    @Autowired
     private BootSecurityProperties properties;
 
-    @Autowired(required = false)
     private RedisConnectionFactory factory;
 
+
+
+    private DataSource dataSource;
+
     @Autowired(required = false)
-    private JwtAccessTokenConverter converter;
+    public TokenStoreConfig(BootSecurityProperties properties, RedisConnectionFactory factory, DataSource dataSource) {
+        this.properties = properties;
+        this.factory = factory;
+
+        this.dataSource = dataSource;
+    }
 
     @Bean
     public TokenStore tokenStore() throws Exception {
@@ -41,7 +48,7 @@ public class TokenStoreConfig {
 
         switch (properties.getTokenStoreType()) {
             case jwt:
-                store = new JwtTokenStore(converter);
+                store = new JwtTokenStore(jwtAccessTokenConverter());
                 break;
             case redis:
                 if (factory == null) {
@@ -49,9 +56,15 @@ public class TokenStoreConfig {
                 }
                 store = new RedisTokenStore(factory);
                 break;
+            case jdbc:
+
+                if(dataSource==null){
+                    throw new BeanCreationException("配置jdbc存储Token需要dataSource bean，未找到");
+                }
+                store=new JdbcTokenStore(dataSource);
+                break;
             default:
                 store = new InMemoryTokenStore();
-
         }
 
         return store;

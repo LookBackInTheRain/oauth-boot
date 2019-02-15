@@ -6,10 +6,8 @@ import java.util.List;
 
 /**
  * @author yuit
- * @create Time 2018/8/6 15:56
- * @description
- * @modify by
- * @modify time
+ * @date  2018/8/6 15:56
+ *
  **/
 @Data
 public class PageQueryItems {

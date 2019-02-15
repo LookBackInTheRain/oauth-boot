@@ -10,9 +10,8 @@ import java.util.Map;
 
 /**
  * @author yuit
- * @create 2018/11/5 18:01
- * @description
- * @modify
+ * @date 2018/11/5 18:01
+ *
  */
 public class BootOAuthExceptionJacksonSerializer extends StdSerializer<BootOAuth2Exception> {
 

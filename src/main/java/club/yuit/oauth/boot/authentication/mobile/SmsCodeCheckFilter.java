@@ -18,10 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @auther yuit
- * @create 2018/10/19 15:56
- * @description
- * @modify
+ * @author yuit
+ * @date 2018/10/19 15:33
  */
 @Getter
 @Setter

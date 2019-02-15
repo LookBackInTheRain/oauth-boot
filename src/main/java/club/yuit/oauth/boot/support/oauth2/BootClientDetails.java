@@ -13,10 +13,8 @@ import java.util.Set;
 
 /**
  * @author yuit
- * @create time 2018/10/16  15:36
- * @description
- * @modify by
- * @modify time
+ * @date 2018/10/16  15:36
+ *
  **/
 @Data
 @SuppressWarnings("unchecked")

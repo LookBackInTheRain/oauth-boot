@@ -2,10 +2,8 @@ package club.yuit.oauth.boot.exception;
 
 /**
  * @author yuit
- * @create Time 2018/8/6 15:56
- * @description 没有权限
- * @modify by
- * @modify time
+ * @date Time 2018/8/6 15:56
+ *  没有权限
  **/
 public class NotAuthorityException extends RuntimeException{
 

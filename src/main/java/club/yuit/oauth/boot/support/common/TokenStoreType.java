@@ -1,11 +1,9 @@
 package club.yuit.oauth.boot.support.common;
 
 /**
- * @auther yuit
- * @create 2018/10/19 10:57
- * @description
- * @modify
+ * @author yuit
+ * @date 2018/10/19 10:57
  */
 public enum TokenStoreType {
-    memory,redis,jwt
+    memory,redis,jwt,jdbc
 }

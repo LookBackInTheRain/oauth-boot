@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @auther yuit
- * @create 2018/10/19 17:34
- * @description
- * @modify
+ * @author yuit
+ * @date 2018/10/19 17:34
+ *
  */
 @Getter
 @Setter

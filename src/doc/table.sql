@@ -39,3 +39,23 @@ INSERT INTO boot.user (id, username, password, gender, email, isEnable, isExpire
 
 -- clients 测试数据 密码123qwe
 INSERT INTO boot.clients (id, clientId, resourceIds, isSecretRequired, clientSecret, isScoped, scope, authorizedGrantTypes, registeredRedirectUri, authorities, isAutoApprove, accessTokenValiditySeconds, refreshTokenValiditySeconds, createTime, modifyTime) VALUES ('JKGJHGJHFGH89867', 'client', 'boot-server', true, '$2a$10$06S5v7Mo47e8Qyv65Ltz.uhcQwfhIcgYDKVPVzBlPj6UHWV2ErbzK', true, 'select', 'refresh_token,authorization_code,password', 'http://localhost:9000', 'CLIENT,ADMIN', false, 1800, 36000, '2018-10-16 10:02:14', '2018-12-14 09:05:03');
+
+
+-- 当token-store-type: jdbc时 需要创建如下两张表
+create table oauth_access_token
+(
+  token_id          VARCHAR(255),
+  token             longblob,
+  authentication_id VARCHAR(255) PRIMARY KEY,
+  user_name         VARCHAR(255),
+  client_id         VARCHAR(255),
+  authentication    longblob,
+  refresh_token     VARCHAR(255)
+);
+
+create table oauth_refresh_token
+(
+  token_id VARCHAR(256),
+  token longblob,
+  authentication longblob
+);

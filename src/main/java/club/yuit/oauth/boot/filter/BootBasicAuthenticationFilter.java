@@ -34,9 +34,9 @@ import java.util.Base64;
 
 /**
  * @author yuit
- * @create 2018/11/5 11:38
- * @description 认证不带客户端信息参数处理 filter
- * @modify
+ * @date 2018/11/5 11:38
+ * 认证不带客户端信息参数处理 filter
+ *
  */
 @Component
 public class BootBasicAuthenticationFilter extends OncePerRequestFilter {

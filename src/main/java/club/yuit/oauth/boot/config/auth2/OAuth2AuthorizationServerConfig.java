@@ -23,16 +23,14 @@ import org.springframework.security.oauth2.provider.client.ClientCredentialsToke
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.servlet.FilterChain;
 
 /**
  * @author yuit
- * @create time 2018/10/15  14:52
- * @description
- * @modify by
- * @modify time
+ * @date  2018/10/15  14:52
  **/
 @Configuration
 @EnableAuthorizationServer
@@ -95,9 +93,10 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                 .authenticationManager(authenticationManager)
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST,HttpMethod.GET);
 
-        if (this.converter != null) {
+        if(!(tokenStore instanceof RedisTokenStore) && this.converter!=null){
             endpoints.accessTokenConverter(converter);
         }
+
 
         // 处理 ExceptionTranslationFilter 抛出的异常
         endpoints.exceptionTranslator(bootWebResponseExceptionTranslator);

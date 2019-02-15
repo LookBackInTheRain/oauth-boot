@@ -7,10 +7,8 @@ import java.util.List;
 
 /**
  * @author yuit
- * @create time 2018/10/9  16:55
- * @description
- * @modify by
- * @modify time
+ * @date 2018/10/9  16:55
+ *
  **/
 public interface IUserService  extends IService<User> {
 

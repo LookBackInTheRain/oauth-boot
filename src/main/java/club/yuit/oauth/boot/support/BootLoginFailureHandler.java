@@ -13,9 +13,8 @@ import java.io.IOException;
 
 /**
  * @author yuit
- * @create 2018/11/6 17:45
- * @description
- * @modify
+ * @date 2018/11/6 17:45
+ *
  */
 @Component
 public class BootLoginFailureHandler implements AuthenticationFailureHandler {

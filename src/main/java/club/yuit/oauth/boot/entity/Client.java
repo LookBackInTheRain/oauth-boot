@@ -9,10 +9,8 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author yuit
- * @create time 2018/10/16  9:23
- * @description
- * @modify by
- * @modify time
+ * @date  2018/10/16  9:23
+ *
  **/
 @Data
 @TableName("clients")

@@ -14,9 +14,8 @@ import java.io.IOException;
 
 /**
  * @author yuit
- * @create 2018/11/1 18:15
- * @description 请求拒绝，没有权限
- * @modify
+ * @date 2018/11/1 18:15
+ *  请求拒绝，没有权限
  */
 @Component
 public class BootAccessDeniedHandler implements AccessDeniedHandler {

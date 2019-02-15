@@ -35,10 +35,8 @@ import static club.yuit.oauth.boot.response.HttpResponse.simpleResponse;
 
 /**
  * @author yuit
- * @create time  2018/3/30 20:37
- * @description 错误同意拦截
- * @modify
- * @modify time
+ * @date  2018/3/30 20:37
+ *
  */
 @RestControllerAdvice
 public final class ExceptionAdviceHandler {
@@ -56,6 +54,9 @@ public final class ExceptionAdviceHandler {
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public BaseResponse runtimeExceptionHandler(RuntimeException ex) {
+
+        ex.printStackTrace();
+
         return this.serverErrorHandler();
     }
 

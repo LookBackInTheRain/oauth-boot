@@ -18,9 +18,8 @@ import java.io.IOException;
 
 /**
  * @author yuit
- * @create 2018/11/2 10:48
- * @description token 校验失败
- * @modify
+ * @date 2018/11/2 10:48
+ *
  */
 @Component
 public class BootOAuth2AuthExceptionEntryPoint extends OAuth2AuthenticationEntryPoint {

@@ -15,10 +15,8 @@ import javax.validation.Valid;
 
 /**
  * @author yuit
- * @create time 2018/10/16  10:32
- * @description
- * @modify by
- * @modify time
+ * @date 2018/10/16  10:32
+ *
  **/
 @RestController
 @RequestMapping("client")

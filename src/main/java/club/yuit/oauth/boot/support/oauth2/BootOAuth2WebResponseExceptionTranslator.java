@@ -18,9 +18,8 @@ import java.io.IOException;
 
 /**
  * @author yuit
- * @create 2018/11/2 9:14
- * @description
- * @modify
+ * @date 2018/11/2 9:14
+ *
  */
 @Component("bootWebResponseExceptionTranslator")
 public class BootOAuth2WebResponseExceptionTranslator implements WebResponseExceptionTranslator {

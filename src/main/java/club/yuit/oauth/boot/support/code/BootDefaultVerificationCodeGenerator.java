@@ -9,10 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
- * @auther yuit
- * @create 2018/10/19 17:47
- * @description
- * @modify
+ * @author yuit
+ * @date 2018/10/19 17:47
+ *
  */
 @Component
 @ConditionalOnMissingBean(BootDefaultVerificationCodeGenerator.class)

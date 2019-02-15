@@ -1,3 +1,5 @@
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.util.AntPathMatcher;
 
 /**
@@ -10,10 +12,7 @@ public class Main {
 
     public static void main(String[] args){
 
-        String h = "123456";
 
-        System.out.println(false||true);
-        System.out.println(true|false);
 
     }
 
