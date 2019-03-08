@@ -14,6 +14,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 /**
  * @author yuit
  * @date  2018/10/15  14:57
+ * 资源服务配置
  **/
 @Configuration
 @EnableResourceServer

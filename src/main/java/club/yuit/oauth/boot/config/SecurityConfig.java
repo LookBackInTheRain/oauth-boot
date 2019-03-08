@@ -25,22 +25,21 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 @Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+
     private BootUserDetailService userDetailService;
 
-    @Autowired
+
     private BootSecurityProperties properties;
 
-    @Autowired
+
     private BootLoginFailureHandler handler;
 
-    @Autowired
-    private ClientDetailsService clientDetailsService;
 
-    @Autowired
-    BootOAuth2AuthExceptionEntryPoint authenticationEntryPoint;
-
-
+    public SecurityConfig(BootUserDetailService userDetailService, BootSecurityProperties properties, BootLoginFailureHandler handler) {
+        this.userDetailService = userDetailService;
+        this.properties = properties;
+        this.handler = handler;
+    }
 
     /**
      * 让Security 忽略这些url，不做拦截处理
@@ -86,11 +85,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl(properties.getLoginProcessUrl());
 
         http.httpBasic().disable();
-
-
-
-
-
     }
 
 

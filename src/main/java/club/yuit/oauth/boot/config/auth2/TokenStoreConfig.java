@@ -21,6 +21,9 @@ import javax.sql.DataSource;
 /**
  * @author yuit
  * @date  2018/10/17  16:38
+ *
+ * token 存储方式配置
+ *
  **/
 @Configuration
 public class TokenStoreConfig {
