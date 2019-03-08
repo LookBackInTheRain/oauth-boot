@@ -18,7 +18,7 @@ spring-security ，spring-security-oauth2 ，string boot 学习
 boot:
   oauth:
     # token 存储方式，可选配置
-    token-store-type: jwt #默认为 memory， redis
+    token-store-type: jwt #默认为 memory
     # token签名秘钥，可选配置，默认：OAUTHBOOT@IUY09&098#UIOKNJJ-YUIT.CLUB
     token-signing-key: 123qwe 
     # 登录处理url 可选配置

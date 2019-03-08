@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 /**
  * @author yuit
  * @date time 2018/10/9  15:14
- *
+ * 数据库配置
  **/
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")
