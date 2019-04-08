@@ -1,8 +1,7 @@
-package club.yuit.oauth.boot.authentication.mobile;
+package club.yuit.oauth.boot.authentication.sms;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;

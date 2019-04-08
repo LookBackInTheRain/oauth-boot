@@ -43,6 +43,7 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
+                // Allows restricting access based upon the {@link HttpServletRequest} using
                 .authorizeRequests()
                     .antMatchers("/favicon.ico")
                     .permitAll()
