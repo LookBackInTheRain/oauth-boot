@@ -4,13 +4,14 @@ spring-security ，spring-security-oauth2 ，string boot 学习
 
 ---
 
-#### 更新
+#### Update
   [更新说明](https://github.com/LookBackInTheRain/oauth-boot/blob/dev/UPDATE.md)
-#### 目前功能
+#### Current
 1. 授权码模式，密码模式，简化模式（未测试），客户端模式（未测试）
 2. JWT 
 3. 自定义登录页面和授权页面
 4. 自定义异常处理
+5. [认证服务与资源服务分离](https://github.com/LookBackInTheRain/oauth-boot-up)
 
 #### 配置
 
@@ -25,7 +26,7 @@ boot:
     login-process-url: /auth/authorize 
 ```
 
-#### 授权马模式
+#### 授权码模式
     
    1. 请求授权 http://ip:port/oauth/authorize?response_type=code&client_id=client&client_secret=123qwe&redirect_uri=http://localhost:9000&scope=select
    2. 如果没有登录会跳转到登录页面，登录后跳转到授权页面（是否会跳转到授权页面取决于是否将isAutoApprove字段的值 ）
