@@ -1,4 +1,4 @@
-package club.yuit.oauth.boot.authentication.mobile;
+package club.yuit.oauth.boot.authentication.sms;
 
 import club.yuit.oauth.boot.exception.VerificationCodeFailureException;
 import club.yuit.oauth.boot.support.BootSecurityProperties;

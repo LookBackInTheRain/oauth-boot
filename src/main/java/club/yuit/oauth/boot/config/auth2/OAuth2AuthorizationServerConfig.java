@@ -1,7 +1,9 @@
 package club.yuit.oauth.boot.config.auth2;
 
 import club.yuit.oauth.boot.filter.BootBasicAuthenticationFilter;
+import club.yuit.oauth.boot.support.BootUserDetailService;
 import club.yuit.oauth.boot.support.oauth2.BootClientDetailsService;
+import club.yuit.oauth.boot.support.oauth2.BootOAuth2WebResponseExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -43,7 +45,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
 
 
-    private WebResponseExceptionTranslator bootWebResponseExceptionTranslator;
+    private BootOAuth2WebResponseExceptionTranslator bootWebResponseExceptionTranslator;
 
 
     private BootBasicAuthenticationFilter filter;
@@ -55,8 +57,8 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
                                            BootClientDetailsService clientDetailsService,
                                            TokenStore tokenStore, JwtAccessTokenConverter converter,
                                            AuthenticationEntryPoint authenticationEntryPoint,
-                                           WebResponseExceptionTranslator bootWebResponseExceptionTranslator,
-                                           BootBasicAuthenticationFilter filter, UserDetailsService userDetailsService) {
+                                           BootOAuth2WebResponseExceptionTranslator bootWebResponseExceptionTranslator,
+                                           BootBasicAuthenticationFilter filter, BootUserDetailService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.clientDetailsService = clientDetailsService;
         this.tokenStore = tokenStore;
@@ -112,8 +114,6 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         if(!(tokenStore instanceof RedisTokenStore) && this.converter!=null){
             endpoints.accessTokenConverter(converter);
         }
-
-
 
 
         // 处理 ExceptionTranslationFilter 抛出的异常

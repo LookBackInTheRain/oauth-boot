@@ -1,4 +1,4 @@
-package club.yuit.oauth.boot.authentication.mobile;
+package club.yuit.oauth.boot.authentication.sms;
 
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -32,7 +32,7 @@ public class SmsCodeAuthenticationFilter  extends AbstractAuthenticationProcessi
 
     // ~ Methods
     // ========================================================================================================
-
+    @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
         if (postOnly && !request.getMethod().equals("POST")) {

@@ -183,7 +183,7 @@ public final class ExceptionAdviceHandler {
     @ExceptionHandler({HttpMediaTypeNotAcceptableException.class})
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public BaseResponse request406(HttpServletResponse resp) {
-        return baseResponse(405, "不接受该请求");
+        return baseResponse(405, "类型不匹配");
 
     }
 

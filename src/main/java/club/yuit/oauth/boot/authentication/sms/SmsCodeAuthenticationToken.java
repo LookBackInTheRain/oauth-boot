@@ -1,4 +1,4 @@
-package club.yuit.oauth.boot.authentication.mobile;
+package club.yuit.oauth.boot.authentication.sms;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

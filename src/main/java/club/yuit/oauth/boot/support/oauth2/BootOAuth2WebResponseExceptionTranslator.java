@@ -22,11 +22,11 @@ import java.io.IOException;
  *
  */
 @Component("bootWebResponseExceptionTranslator")
-public class BootOAuth2WebResponseExceptionTranslator implements WebResponseExceptionTranslator {
+public class BootOAuth2WebResponseExceptionTranslator implements WebResponseExceptionTranslator<OAuth2Exception> {
 
     private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
-
+    @Override
     public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
 
         // Try to extract a SpringSecurityException from the stacktrace

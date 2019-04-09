@@ -10,7 +10,7 @@ spring:
   datasource:
     username: dev
     password: Sys@gzu123+
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://172.16.2.103:3306/boot?useUnicode=true&characterEncoding=utf-8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
   #redis 配置

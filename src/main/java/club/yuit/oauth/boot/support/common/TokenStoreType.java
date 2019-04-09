@@ -5,5 +5,20 @@ package club.yuit.oauth.boot.support.common;
  * @date 2018/10/19 10:57
  */
 public enum TokenStoreType {
-    memory,redis,jwt,jdbc
+    /*
+        内存
+     */
+    memory,
+    /*
+        redis
+     */
+    redis,
+    /*
+        json web token
+     */
+    jwt,
+    /*
+        数据库
+     */
+    jdbc
 }

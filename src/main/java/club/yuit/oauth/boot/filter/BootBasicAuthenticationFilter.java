@@ -87,7 +87,9 @@ public class BootBasicAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 
-    // 判断请求头中是否包含client信息，不包含返回false
+    /**
+     * 判断请求头中是否包含client信息，不包含返回null
+     */
     private String[] isHasClientDetails(HttpServletRequest request) {
 
         String[] params = null;
