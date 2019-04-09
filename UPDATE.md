@@ -1,4 +1,6 @@
 
+### 2019/4/9 更新
+1. [认证服务与资源服务分离](https://github.com/LookBackInTheRain/oauth-boot-up)
 ### 2019/3/8 更新
 1. 解决无法使用 `refresh_token` 更新`token`问题 
 2. `spring-boot` 升级并测试通过
