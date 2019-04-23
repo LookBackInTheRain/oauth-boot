@@ -65,9 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                // 必须配置，不然OAuth2的http配置不生效----不明觉厉
+                // http security 要拦截的url，这里这拦截，oauth2相关和登录登录相关的url，其他的交给资源服务处理
                 .requestMatchers()
-                .antMatchers("/auth/login", properties.getLoginProcessUrl(), "/oauth/authorize")
+                .antMatchers( "/oauth/**",properties.getLoginPage(),properties.getLoginProcessUrl())
                 .and()
                 .authorizeRequests()
                 // 自定义页面或处理url是，如果不配置全局允许，浏览器会提示服务器将页面转发多次
@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .failureHandler(handler)
                 // 页面
-                .loginPage("/auth/login")
+                .loginPage(properties.getLoginPage())
                 // 登录处理url
                 .loginProcessingUrl(properties.getLoginProcessUrl());
 
