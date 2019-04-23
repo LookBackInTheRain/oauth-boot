@@ -3,6 +3,8 @@ package club.yuit.oauth.boot.support;
 import club.yuit.oauth.boot.support.common.TokenStoreType;
 import club.yuit.oauth.boot.support.properities.BootLogLevelProperties;
 import club.yuit.oauth.boot.support.properities.BootSmsCodeProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -17,6 +19,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "boot.oauth")
+@Getter
+@Setter
 public class BootSecurityProperties {
 
 
@@ -27,6 +31,7 @@ public class BootSecurityProperties {
     private TokenStoreType tokenStoreType = TokenStoreType.memory;
 
     private String loginProcessUrl="/auth/authorize";
+    private String loginPage="/auth/login";
 
 
     /**
@@ -43,46 +48,7 @@ public class BootSecurityProperties {
 
 
 
-    /*****--------------getter  setter----------------------******/
-    public TokenStoreType getTokenStoreType() {
-        return tokenStoreType;
-    }
 
-    public void setTokenStoreType(TokenStoreType tokenStoreType) {
-        this.tokenStoreType = tokenStoreType;
-    }
-
-    public String getLoginProcessUrl() {
-        return loginProcessUrl;
-    }
-
-    public void setLoginProcessUrl(String loginProcessUrl) {
-        this.loginProcessUrl = loginProcessUrl;
-    }
-
-    public BootLogLevelProperties getLogging() {
-        return logging;
-    }
-
-    public void setLogging(BootLogLevelProperties logging) {
-        this.logging = logging;
-    }
-
-    public BootSmsCodeProperties getSms() {
-        return sms;
-    }
-
-    public void setSms(BootSmsCodeProperties sms) {
-        this.sms = sms;
-    }
-
-    public String getTokenSigningKey() {
-        return tokenSigningKey;
-    }
-
-    public void setTokenSigningKey(String tokenSigningKey) {
-        this.tokenSigningKey = tokenSigningKey;
-    }
 
 
 }

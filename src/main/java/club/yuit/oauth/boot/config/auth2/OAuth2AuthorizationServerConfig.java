@@ -86,7 +86,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
         // 自定义异常处理端口
         security.authenticationEntryPoint(authenticationEntryPoint);
 
-        // 认证之前的过滤器
+        // 客户端认证之前的过滤器
         security.addTokenEndpointAuthenticationFilter(filter);
 
         security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
