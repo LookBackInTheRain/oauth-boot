@@ -28,7 +28,7 @@ boot:
 
 #### 授权码模式
     
-   1. 请求授权 http://ip:port/oauth/authorize?response_type=code&client_id=client&client_secret=123qwe&redirect_uri=http://localhost:9000&scope=select
+   1. 请求授权 http://ip:port/oauth/authorize?response_type=code&client_id=client&redirect_uri=http://localhost:9000&scope=select
    2. 如果没有登录会跳转到登录页面，登录后跳转到授权页面（是否会跳转到授权页面取决于是否将isAutoApprove字段的值 ）
    3. 授权后得到一个授权码，拿着授权码即可申请token
 
