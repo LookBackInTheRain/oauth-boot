@@ -37,6 +37,10 @@ public class CoreConfig extends WebMvcConfigurationSupport {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/statics/**")
+                .addResourceLocations("classpath:/statics/");
+
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/statics/favicon.ico");
     }
 
     /**

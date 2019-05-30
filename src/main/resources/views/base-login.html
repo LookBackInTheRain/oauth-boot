@@ -1,57 +1,133 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <title>登录</title>
+    <link rel="icon" href="/favicon.ico"  type="image/x-icon"/>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="/statics/libs/mdui/css/mdui-1.css"/>
+    <link rel="stylesheet" href="/statics/libs/base.css"/>
+    <script type="application/javascript" src="/statics/libs/mdui/js/mdui.min.js"></script>
 </head>
 
 <style>
-    .login-container {
-        margin: 50px;
-        width: 100%;
+    .content{
+        border-top: 2px solid #8B8B8B;
+        height: 230px;
     }
-
-    .form-container {
-        margin: 0px auto;
-        width: 50%;
-        text-align: center;
-        box-shadow: 1px 1px 10px #888888;
-        height: 300px;
-        padding: 5px;
-    }
-
-    input {
-        margin-top: 10px;
-        width: 350px;
-        height: 30px;
-        border-radius: 3px;
-        border: 1px #E9686B solid;
-        padding-left: 2px;
-
-    }
-
-
-    .btn {
-        width: 350px;
-        height: 35px;
-        line-height: 35px;
-        cursor: pointer;
-        margin-top: 20px;
-        border-radius: 3px;
-        background-color: #E9686B;
-        color: white;
-        border: none;
-        font-size: 15px;
-    }
-
-    .title{
-        margin-top: 5px;
-        font-size: 18px;
-        color: #E9686B;
+    .input-txt{
+        line-height: 65px;
     }
 </style>
-<body>
-<div class="login-container">
+
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-loaded">
+<div class="mdui-container mdui-valign" style="height: 500px ">
+    <div class="mdui-col-md-6 mdui-col-offset-md-3 mdui-shadow-10 " >
+        <div>
+            <br>
+            <div class="mdui-typo-body-2-opacity mdui-text-center">
+                <a href="https://github.com/LookBackInTheRain/oauth-boot-up" target="_blank">
+                    <span style="color: red">OAUTH-BOOT-UP</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="mdui-tab mdui-tab-centered " mdui-tab >
+            <a href="#id_login" class="mdui-ripple">账号密码登录</a>
+            <a href="#sms_login" class="mdui-ripple">短信登录</a>
+            <a href="#social_login" class="mdui-ripple">社交平台登录</a>
+        </div>
+
+        <div id="id_login" class="mdui-p-a-2 content mdui-clearfix">
+
+            <form name="loginForm" method="post" th:action="${loginProcessUrl}">
+                <div class="mdui-container">
+                    <div class="mdui-textfield">
+                        <input class="mdui-textfield-input" name="username" type="text"  required placeholder="用户名**"/>
+                    </div>
+
+                    <div class="mdui-textfield">
+                        <input class="mdui-textfield-input" name="password" type="password" placeholder="密码**" required/>
+                    </div>
+
+                    <div class="mdui-row">
+                        <div class="mdui-col-md-9">
+                            <div class="mdui-textfield">
+                                <input class="mdui-textfield-input" th:name="${pictureCodeParameterName}" type="text" placeholder="验证码**" required/>
+                            </div>
+
+                        </div>
+                        <div class="mdui-col-md-3">
+                            <img id="p_code" onclick="changePictureCode()"
+                                 src="/picture_code"
+                                 alt="点击重新加载"
+                                 title="点击重新加载"
+                                 style="margin-top: 12px;cursor: pointer" >
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button class="mdui-btn  mdui-btn-raised mdui-btn-block mdui-color-theme-accent mdui-ripple">登 录</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div id="sms_login" class="mdui-p-a-2 content">
+
+            <form name="loginForm" method="post" th:action="${loginProcessUrl}">
+                <div class="mdui-container">
+                    <div class="mdui-textfield">
+                        <input class="mdui-textfield-input" type="text" placeholder="电话号码" required/>
+                        <div class="mdui-textfield-error">必填*</div>
+                    </div>
+
+                    <div class="mdui-row">
+                        <div class="mdui-col-md-9">
+                            <div class="mdui-textfield">
+                                <input class="mdui-textfield-input" type="text" placeholder="手机验证码" required/>
+                                <div class="mdui-textfield-error">必填*</div>
+                            </div>
+                        </div>
+                        <div class="mdui-col-md-3">
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="mdui-btn mdui-btn-raised mdui-btn-block mdui-ripple mdui-color-theme-accent" disabled>
+                            登 录 （Future）
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="social_login" class="mdui-p-a-2 content">
+
+            social_login
+        </div>
+
+        <p class="mdui-p-a-2" style="color: red;text-align: center" th:if="${param.error}" th:text="${param.error}"></p>
+
+        <div class="mdui-text-center">
+            <p class="mdui-typo-body-1-opacity">
+                oauth-boot-up <a href="https://github.com/LookBackInTheRain" target="_blank">@yuit</a> 2019
+            </p>
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+    function changePictureCode() {
+        var img=document.getElementById("p_code");
+        img.setAttribute("src","/picture_code?time="+new Date().getTime())
+    }
+</script>
+
+<!--
+<div class="login-container" id="id_login">
 
     <div class="form-container">
         <p class="title">用户登录</p>
@@ -68,7 +144,7 @@
     </div>
 
 
-</div>
+</div>-->
 
 </body>
 </html>

@@ -46,8 +46,7 @@ public class BootSecurityProperties {
 
     private String tokenSigningKey = "OAUTHBOOT@IUY09&098#UIOKNJJ-YUIT.CLUB";
 
-
-
+    private String pictureCodeParameterName="p_code";
 
 
 

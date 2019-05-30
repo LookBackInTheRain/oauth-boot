@@ -1,19 +1,14 @@
 package club.yuit.oauth.boot.controller;
 
-import club.yuit.oauth.boot.entity.User;
-import club.yuit.oauth.boot.service.IUserService;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import club.yuit.oauth.boot.support.code.picture.BootPictureCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author yuit
@@ -31,8 +26,14 @@ public class BaseMainController {
     public String loginPage(Model model){
 
         model.addAttribute("loginProcessUrl",properties.getLoginProcessUrl());
+        model.addAttribute("pictureCodeParameterName",properties.getPictureCodeParameterName());
 
         return "base-login";
+    }
+
+    @GetMapping("/picture_code")
+    public void pictureCodeGenerate(HttpServletResponse response) throws IOException {
+        BootPictureCodeGenerator.generate(response);
     }
 
 }

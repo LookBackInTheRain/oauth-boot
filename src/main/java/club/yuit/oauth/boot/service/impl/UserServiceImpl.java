@@ -17,21 +17,9 @@ import java.util.List;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUserService {
 
-    @Autowired
-    private UserMapper userMapper;
-
-
-    @Override
-    public List<User> getUsers() {
-
-        User dd= this.userMapper.findByUserName("yuit");
-
-        return this.userMapper.selectList(null);
-    }
-
     @Override
     public User findByUserName(String userName) {
-        return this.userMapper.findByUserName(userName);
+        return this.baseMapper.findByUserName(userName);
     }
 
 
