@@ -23,7 +23,6 @@ public class BootGrantController {
 
         AuthorizationRequest authorizationRequest = (AuthorizationRequest) model.get("authorizationRequest");
 
-
         ModelAndView view = new ModelAndView();
         view.setViewName("base-grant");
 
