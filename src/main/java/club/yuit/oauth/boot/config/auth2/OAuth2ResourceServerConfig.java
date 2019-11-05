@@ -45,7 +45,7 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
         http
                 // Allows restricting access based upon the {@link HttpServletRequest} using
                 .authorizeRequests()
-                    .antMatchers("/favicon.ico")
+                    .antMatchers("/favicon.ico","/oauth/**")
                     .permitAll()
                     .anyRequest()
                     .access("#oauth2.hasAnyScope('all','select')");

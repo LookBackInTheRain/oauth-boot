@@ -1,10 +1,9 @@
 package club.yuit.oauth.boot.config;
 
+import club.yuit.oauth.boot.filter.BootPictureCodeAuthenticationFilter;
 import club.yuit.oauth.boot.support.BootLoginFailureHandler;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
 import club.yuit.oauth.boot.support.BootUserDetailService;
-import club.yuit.oauth.boot.support.oauth2.BootOAuth2AuthExceptionEntryPoint;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -15,7 +14,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author yuit
@@ -34,11 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private BootLoginFailureHandler handler;
 
+    private BootPictureCodeAuthenticationFilter pictureCodeAuthenticationFilter;
 
-    public SecurityConfig(BootUserDetailService userDetailService, BootSecurityProperties properties, BootLoginFailureHandler handler) {
+
+    public SecurityConfig(BootUserDetailService userDetailService, BootSecurityProperties properties, BootLoginFailureHandler handler, BootPictureCodeAuthenticationFilter pictureCodeAuthenticationFilter) {
         this.userDetailService = userDetailService;
         this.properties = properties;
         this.handler = handler;
+        this.pictureCodeAuthenticationFilter = pictureCodeAuthenticationFilter;
     }
 
     /**
@@ -52,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers
                 ("/swagger-ui.html/**", "/webjars/**",
                         "/swagger-resources/**", "/v2/api-docs/**",
-                        "/swagger-resources/configuration/ui/**", "/swagger-resources/configuration/security/**",
+                        "/swagger-resources/configuration/ui/**","/statics/**","/picture_code", "/swagger-resources/configuration/security/**",
                         "/images/**");
     }
 
@@ -63,7 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http
                 // http security 要拦截的url，这里这拦截，oauth2相关和登录登录相关的url，其他的交给资源服务处理
                 .requestMatchers()
@@ -71,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 自定义页面或处理url是，如果不配置全局允许，浏览器会提示服务器将页面转发多次
-                .antMatchers("/auth/login", properties.getLoginProcessUrl())
+                .antMatchers(properties.getLoginPage(), properties.getLoginProcessUrl())
                 .permitAll()
                 .anyRequest()
                 .authenticated();
@@ -85,6 +86,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl(properties.getLoginProcessUrl());
 
         http.httpBasic().disable();
+
+        // 用户密码验证之前校验验证码
+        http.addFilterBefore(pictureCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+
     }
 
 

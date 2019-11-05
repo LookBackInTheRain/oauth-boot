@@ -36,6 +36,9 @@ spring:
 
 #logging.level.org.springframework.security: DEBUG
 
+management:
+  securit:
+    enabled: true
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper # mapper 文件路径

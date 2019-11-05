@@ -15,11 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientServiceImpl extends ServiceImpl<ClientMapper,Client> implements IClientService {
 
-    @Autowired
-    private ClientMapper clientMapper;
 
     @Override
     public Client findClientByClientId(String clientId) {
-        return this.clientMapper.findClientByClientId(clientId);
+
+        return this.baseMapper.findClientByClientId(clientId);
     }
 }

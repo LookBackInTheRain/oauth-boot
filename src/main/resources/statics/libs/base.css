@@ -1,0 +1,19 @@
+.input {
+    margin-top: 10px;
+    width: 350px;
+    height: 35px;
+    border-radius: 3px;
+    border: 1px #E9686B solid;
+    padding-left: 2px;
+
+}
+
+.btn-theme-red{
+    color: white;
+    background-color: red;
+}
+
+.btn-theme-red:hover{
+    color: white;
+    background-color: red;
+}

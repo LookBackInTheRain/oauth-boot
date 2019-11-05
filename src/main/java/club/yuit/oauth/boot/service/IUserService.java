@@ -12,11 +12,7 @@ import java.util.List;
  **/
 public interface IUserService  extends IService<User> {
 
-    /**
-     * 获取所有用户
-     * @return
-     */
-    public List<User> getUsers();
+
 
 
     User findByUserName(String userName);
