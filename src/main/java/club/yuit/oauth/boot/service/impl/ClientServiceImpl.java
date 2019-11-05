@@ -18,7 +18,6 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper,Client> implemen
 
     @Override
     public Client findClientByClientId(String clientId) {
-
         return this.baseMapper.findClientByClientId(clientId);
     }
 }

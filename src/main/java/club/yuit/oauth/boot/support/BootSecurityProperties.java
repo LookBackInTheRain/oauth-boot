@@ -48,6 +48,4 @@ public class BootSecurityProperties {
 
     private String pictureCodeParameterName="p_code";
 
-
-
 }
