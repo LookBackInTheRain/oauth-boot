@@ -4,24 +4,13 @@ import club.yuit.oauth.boot.response.BaseResponse;
 import club.yuit.oauth.boot.response.HttpResponse;
 import club.yuit.oauth.boot.support.oauth2.BootClientDetails;
 import club.yuit.oauth.boot.utils.HttpUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.ClientRegistrationException;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.NullRememberMeServices;
-import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -41,9 +30,13 @@ import java.util.Base64;
 @Component
 public class BootBasicAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
     private ClientDetailsService clientDetailsService;
+    private PasswordEncoder encoder;
 
+    public BootBasicAuthenticationFilter(ClientDetailsService clientDetailsService, PasswordEncoder encoder) {
+        this.clientDetailsService = clientDetailsService;
+        this.encoder = encoder;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -78,6 +71,13 @@ public class BootBasicAuthenticationFilter extends OncePerRequestFilter {
 
 
         BootClientDetails details = (BootClientDetails) this.clientDetailsService.loadClientByClientId(clientDetails[0]);
+
+        if (!this.encoder.matches(clientDetails[1],details.getClientSecret())){
+            BaseResponse bs = HttpResponse.baseResponse(HttpStatus.UNAUTHORIZED.value(), "client secret error!");
+            HttpUtils.writerError(bs, response);
+            return;
+        }
+
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(details.getClientId(), details.getClientSecret(), details.getAuthorities());
 
