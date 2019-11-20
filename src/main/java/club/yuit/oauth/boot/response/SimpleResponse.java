@@ -11,14 +11,14 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SimpleResponse extends BaseResponse {
+public class SimpleResponse<T> extends BaseResponse {
 
-    private Object item;
+    private T item;
 
     protected SimpleResponse() {
     }
 
-    protected SimpleResponse(int status, String msg, Object item) {
+    protected SimpleResponse(int status, String msg, T item) {
         super(status, msg);
         this.item = item;
     }

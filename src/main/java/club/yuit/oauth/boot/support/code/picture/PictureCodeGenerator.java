@@ -1,5 +1,9 @@
 package club.yuit.oauth.boot.support.code.picture;
 
+import club.yuit.oauth.boot.response.HttpResponse;
+import club.yuit.oauth.boot.support.code.BootCodeService;
+import club.yuit.oauth.boot.support.code.VerificationCodeGenerator;
+
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -14,29 +18,18 @@ import java.util.Random;
  * @author yuit
  * @date 2019/4/10 16:44
  */
-public class BootPictureCodeGenerator {
+public class PictureCodeGenerator implements VerificationCodeGenerator<String> {
 
     private static final String SOURCE_CODES = "123456789ABCDEFGHIJKLMNOBQRSTUVWXYZ";
     private static int height = 40;
     private static int width = 95;
     private static  Random random = new Random();
+    private HttpServletResponse response;
 
 
-    private static String createCodeStr(int codeLength) {
-        Random random = new Random();
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < codeLength; i++) {
-            int key = random.nextInt(SOURCE_CODES.length() - 1);
-            builder.append(SOURCE_CODES.charAt(key));
-        }
-
-        return builder.toString();
-    }
 
 
-    public static void generate(HttpServletResponse response) throws IOException {
-
-        BootSessionPictureCodeService sessionPictureCode = new BootSessionPictureCodeService();
+    public   void generator(BootCodeService<String> codeService) throws IOException {
 
         String code = createCodeStr(4);
 
@@ -104,9 +97,18 @@ public class BootPictureCodeGenerator {
         ImageIO.write(image, "jpg", os);
         os.flush();
         os.close();
+        codeService.setCodeValue("p_code",code);
+    }
 
-        sessionPictureCode.setCodeValue("p_code",code);
+    private static String createCodeStr(int codeLength) {
+        Random random = new Random();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < codeLength; i++) {
+            int key = random.nextInt(SOURCE_CODES.length() - 1);
+            builder.append(SOURCE_CODES.charAt(key));
+        }
 
+        return builder.toString();
     }
 
     private static int[] getRandomRgb() {

@@ -1,13 +1,16 @@
 package club.yuit.oauth.boot.support.code;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author yuit
  * @date 2018/10/19 10:42
  *
  */
-@Data
+@Getter
+@Setter
 public  class VerificationCode {
 
     private String code;

@@ -27,7 +27,6 @@ import java.util.Base64;
  * 认证不带客户端信息参数处理 filter
  *
  */
-@Component
 public class BootBasicAuthenticationFilter extends OncePerRequestFilter {
 
     private ClientDetailsService clientDetailsService;

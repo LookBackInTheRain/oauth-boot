@@ -15,16 +15,14 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2018/10/19 15:33
  */
 public class SmsCodeAuthenticationFilter  extends AbstractAuthenticationProcessingFilter {
-    // ~ Static fields/initializers
-    // =====================================================================================
+
 
     public static final String BOOT_FORM_MOBILE_KEY = "mobile";
 
     private String mobileParameter = BOOT_FORM_MOBILE_KEY;
     private boolean postOnly = true;
 
-    // ~ Constructors
-    // ===================================================================================================
+
 
     public SmsCodeAuthenticationFilter() {
         super(new AntPathRequestMatcher("/authentication/mobile", "POST"));
@@ -35,7 +33,7 @@ public class SmsCodeAuthenticationFilter  extends AbstractAuthenticationProcessi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-        if (postOnly && !request.getMethod().equals("POST")) {
+        if (postOnly && !request.getMethod().equalsIgnoreCase("POST")) {
             throw new AuthenticationServiceException(
                     "Authentication method not supported: " + request.getMethod());
         }

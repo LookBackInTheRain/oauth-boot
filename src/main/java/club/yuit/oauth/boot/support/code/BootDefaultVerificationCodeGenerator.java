@@ -22,9 +22,8 @@ public class BootDefaultVerificationCodeGenerator implements VerificationCodeGen
 
 
     @Override
-    public VerificationCode generator(ServletWebRequest request) {
+    public void generator() {
         String smsCode=RandomStringUtils.randomNumeric(properties.getSms().getLength());
-        return new VerificationCode(smsCode,properties.getSms().getExpirationTime());
     }
 
 

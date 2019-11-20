@@ -13,10 +13,10 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class ListResponse extends BaseResponse {
+public class ListResponse<T> extends BaseResponse {
 
     private long count;
-    private List items;
+    private List<T> items;
 
     protected ListResponse(){
 

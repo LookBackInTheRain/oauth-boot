@@ -2,6 +2,7 @@ package club.yuit.oauth.boot.authentication.sms;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class SmsAuthenticationProvider implements AuthenticationProvider {
 
     private UserDetailsService service;
+    private StringRedisTemplate template;
+
+    public SmsAuthenticationProvider(UserDetailsService service, StringRedisTemplate template) {
+        this.service = service;
+        this.template = template;
+    }
+
+    public SmsAuthenticationProvider() {
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

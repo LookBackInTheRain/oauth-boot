@@ -13,12 +13,12 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class PageAndSortResponse extends BaseResponse {
+public class PageAndSortResponse<T> extends BaseResponse {
 
     private Integer currentPage;
     private Integer pageSize;
     private long count;
-    List items;
+    List<T> items;
 
     protected PageAndSortResponse(){}
 
