@@ -1,8 +1,9 @@
 package club.yuit.oauth.boot.controller;
 
 import club.yuit.oauth.boot.support.BootSecurityProperties;
-import club.yuit.oauth.boot.support.code.picture.BootPictureCodeGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
+import club.yuit.oauth.boot.support.code.BootCodeService;
+import club.yuit.oauth.boot.support.code.picture.PictureCodeGenerator;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,15 @@ import java.io.IOException;
 public class BaseMainController {
 
 
-    @Autowired
     private BootSecurityProperties properties;
+
+    private BootCodeService codeService;
+
+    public BaseMainController(BootSecurityProperties properties,
+                              @Qualifier("sessionPictureCodeService") BootCodeService codeService) {
+        this.properties = properties;
+        this.codeService = codeService;
+    }
 
     @GetMapping("/auth/login")
     public String loginPage(Model model){
@@ -33,7 +41,7 @@ public class BaseMainController {
 
     @GetMapping("/picture_code")
     public void pictureCodeGenerate(HttpServletResponse response) throws IOException {
-        BootPictureCodeGenerator.generate(response);
+        new PictureCodeGenerator(response).generator(codeService);
     }
 
 }

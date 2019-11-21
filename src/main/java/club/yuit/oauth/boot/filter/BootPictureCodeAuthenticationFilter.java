@@ -1,7 +1,7 @@
 package club.yuit.oauth.boot.filter;
 
 import club.yuit.oauth.boot.support.BootSecurityProperties;
-import club.yuit.oauth.boot.support.code.picture.BootSessionPictureCodeService;
+import club.yuit.oauth.boot.support.code.picture.SessionPictureCodeService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -23,9 +23,9 @@ public class BootPictureCodeAuthenticationFilter extends OncePerRequestFilter {
 
     private AntPathMatcher pathMatcher= new AntPathMatcher();
     private BootSecurityProperties properties;
-    private BootSessionPictureCodeService pictureCodeService;
+    private SessionPictureCodeService pictureCodeService;
 
-    public BootPictureCodeAuthenticationFilter(BootSecurityProperties properties, BootSessionPictureCodeService pictureCodeService) {
+    public BootPictureCodeAuthenticationFilter(BootSecurityProperties properties, SessionPictureCodeService pictureCodeService) {
         this.properties = properties;
         this.pictureCodeService = pictureCodeService;
     }

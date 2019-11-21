@@ -6203,8 +6203,6 @@ th.mdui-table-cell-checkbox .mdui-checkbox {
 .mdui-textfield-focus .mdui-textfield-input,
 .mdui-textfield-focus .mdui-textfield-input:hover {
   border-color: #c51162;
-  -webkit-box-shadow: 0 1px 0 0 #c51162;
-          box-shadow: 0 1px 0 0 #c51162;
   cursor: pointer;
 }
 .mdui-textfield-focus .mdui-textfield-label,
@@ -6274,8 +6272,6 @@ th.mdui-table-cell-checkbox .mdui-checkbox {
 .mdui-textfield-invalid.mdui-textfield-focus .mdui-textfield-input,
 .mdui-textfield-invalid-html5.mdui-textfield-focus .mdui-textfield-input {
   border-color: #ff1744 !important;
-  -webkit-box-shadow: 0 1px 0 0 #ff1744 !important;
-          box-shadow: 0 1px 0 0 #ff1744 !important;
 }
 .mdui-textfield-invalid .mdui-textfield-label,
 .mdui-textfield-invalid-html5 .mdui-textfield-label {
@@ -6361,8 +6357,6 @@ th.mdui-table-cell-checkbox .mdui-checkbox {
 .mdui-theme-layout-dark .mdui-textfield-focus .mdui-textfield-input,
 .mdui-theme-layout-dark .mdui-textfield-focus .mdui-textfield-input:hover {
   border-color: #ff4081;
-  -webkit-box-shadow: 0 1px 0 0 #ff4081;
-          box-shadow: 0 1px 0 0 #ff4081;
 }
 .mdui-theme-layout-dark .mdui-textfield-focus .mdui-textfield-label {
   color: #ff4081;

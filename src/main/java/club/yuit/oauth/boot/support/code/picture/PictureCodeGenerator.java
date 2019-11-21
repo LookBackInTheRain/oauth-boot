@@ -26,8 +26,9 @@ public class PictureCodeGenerator implements VerificationCodeGenerator<String> {
     private static  Random random = new Random();
     private HttpServletResponse response;
 
-
-
+    public PictureCodeGenerator(HttpServletResponse response) {
+        this.response = response;
+    }
 
     public   void generator(BootCodeService<String> codeService) throws IOException {
 

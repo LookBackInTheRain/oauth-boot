@@ -22,8 +22,8 @@
     }
 </style>
 
-<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-loaded">
-<div class="mdui-container mdui-valign" style="height: 500px ">
+<body class="mdui-theme-primary-purple mdui-theme-accent-purple mdui-loaded">
+<div class="mdui-container mdui-valign" style="height: 600px ">
     <div class="mdui-col-md-6 mdui-col-offset-md-3 mdui-shadow-10 " >
         <div>
             <br>
@@ -40,22 +40,25 @@
             <a href="#social_login" class="mdui-ripple">社交平台登录</a>
         </div>
 
-        <div id="id_login" class="mdui-p-a-2 content mdui-clearfix">
+        <div id="id_login" class="mdui-p-a-2  mdui-clearfix">
 
             <form name="loginForm" method="post" th:action="${loginProcessUrl}">
                 <div class="mdui-container">
                     <div class="mdui-textfield">
                         <input class="mdui-textfield-input" name="username" type="text"  required placeholder="用户名**"/>
+                        <div class="mdui-textfield-error">必填*</div>
                     </div>
 
                     <div class="mdui-textfield">
                         <input class="mdui-textfield-input" name="password" type="password" placeholder="密码**" required/>
+                        <div class="mdui-textfield-error">必填*</div>
                     </div>
 
                     <div class="mdui-row">
                         <div class="mdui-col-md-9">
                             <div class="mdui-textfield">
                                 <input class="mdui-textfield-input" th:name="${pictureCodeParameterName}" type="text" placeholder="验证码**" required/>
+                                <div class="mdui-textfield-error">必填*</div>
                             </div>
 
                         </div>
@@ -69,7 +72,7 @@
                     </div>
                     <br>
                     <div>
-                        <button class="mdui-btn  mdui-btn-raised mdui-btn-block mdui-color-theme-accent mdui-ripple">登 录</button>
+                        <button class="mdui-btn  mdui-btn-raised mdui-btn-block mdui-color-theme-accent mdui-ripple" type="submit">登 录</button>
                     </div>
                 </div>
             </form>
@@ -93,13 +96,15 @@
                             </div>
                         </div>
                         <div class="mdui-col-md-3">
-
+                            <div class="mdui-textfield">
+                                <button class="mdui-btn mdui-btn-raised mdui-color-theme-accent">发送验证码</button>
+                            </div>
                         </div>
                     </div>
 
                     <div>
-                        <button class="mdui-btn mdui-btn-raised mdui-btn-block mdui-ripple mdui-color-theme-accent" disabled>
-                            登 录 （Future）
+                        <button class="mdui-btn mdui-btn-raised mdui-btn-block mdui-ripple mdui-color-theme-accent" type="submit">
+                            登 录
                         </button>
                     </div>
                 </div>
@@ -107,7 +112,7 @@
         </div>
         <div id="social_login" class="mdui-p-a-2 content">
 
-            social_login
+            social_login  （Future）
         </div>
 
         <p class="mdui-p-a-2" style="color: red;text-align: center" th:if="${param.error}" th:text="${param.error}"></p>

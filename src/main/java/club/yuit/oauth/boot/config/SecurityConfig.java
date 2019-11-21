@@ -1,5 +1,6 @@
 package club.yuit.oauth.boot.config;
 
+import club.yuit.oauth.boot.authentication.sms.SmsAuthenticationProvider;
 import club.yuit.oauth.boot.filter.BootPictureCodeAuthenticationFilter;
 import club.yuit.oauth.boot.support.BootLoginFailureHandler;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
@@ -103,6 +104,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
+    @Bean
+    public SmsAuthenticationProvider smsAuthenticationProvider (){
+        return new SmsAuthenticationProvider();
+    }
+
 
 
 }
