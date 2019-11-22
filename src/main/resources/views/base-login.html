@@ -1,29 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{commons/head::header(~{::title},~{::link},~{},~{::script})}">
 
     <meta charset="UTF-8">
     <title>登录</title>
-    <link rel="icon" href="/favicon.ico"  type="image/x-icon"/>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="/statics/libs/mdui/css/mdui-1.css"/>
-    <link rel="stylesheet" href="/statics/libs/base.css"/>
-    <script type="application/javascript" src="/statics/libs/mdui/js/mdui.min.js"></script>
+    <link rel="shortcut icon" href="/statics/favicon.png" type="image/x-icon"/>
+    <script src="/statics/libs/now-ui/js/core/jquery.min.js" type="application/javascript"></script>
+    <script src="/statics/libs/now-ui/js/core/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/statics/libs/now-ui/js/now-ui-kit.js" type="application/javascript"></script>
 </head>
 
-<style>
-    .content{
-        border-top: 2px solid #8B8B8B;
-        height: 230px;
 
-    }
-    .input-txt{
-        line-height: 65px;
-    }
-</style>
-
-<body class="mdui-theme-primary-purple mdui-theme-accent-purple mdui-loaded">
-<div class="mdui-container mdui-valign" style="height: 600px ">
+<body>
+<!--<div class="mdui-container mdui-valign" style="height: 600px ">
     <div class="mdui-col-md-6 mdui-col-offset-md-3 mdui-shadow-10 " >
         <div>
             <br>
@@ -123,7 +112,39 @@
             </p>
         </div>
     </div>
+</div>-->
+<br><br>
+<div class="container">
+    <div class="card" >
+        <div class="car-header">
+
+            <ul class="nav nav-tabs justify-content-center" role="tablist">
+                <li class="nav-item" >
+                    <a class="nav-link active" data-toggle="tab" href="#home" role="tab">密码登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#sms" role="tab">短信登录</a>
+                </li>
+                <li class="nav-item" >
+                    <a class="nav-link " data-toggle="tab" href="#social" role="tab">第三方</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content text-center">
+                <div class="tab-pane active" id="home" role="tabpanel">
+                    <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                </div>
+                <div class="tab-pane" id="sms" role="tabpanel">
+                    <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
+                </div>
+                <div class="tab-pane" id="social" role="tabpanel">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script type="application/javascript">
     function changePictureCode() {
