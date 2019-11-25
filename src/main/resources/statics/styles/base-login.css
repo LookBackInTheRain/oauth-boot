@@ -12,6 +12,8 @@ body {
     background-color: #E9ECEF;
     height: 8rem;
     line-height: 4rem;
+    border-bottom-right-radius: 20rem;
+    border-top-left-radius: 20rem;
 }
 
 .header-title .name {
