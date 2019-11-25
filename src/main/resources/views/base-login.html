@@ -8,148 +8,153 @@
     <script src="/statics/libs/now-ui/js/core/jquery.min.js" type="application/javascript"></script>
     <script src="/statics/libs/now-ui/js/core/bootstrap.min.js" type="application/javascript"></script>
     <script src="/statics/libs/now-ui/js/now-ui-kit.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/statics/styles/base-login.css"/>
 </head>
 
 
 <body>
-<!--<div class="mdui-container mdui-valign" style="height: 600px ">
-    <div class="mdui-col-md-6 mdui-col-offset-md-3 mdui-shadow-10 " >
-        <div>
-            <br>
-            <div class="mdui-typo-body-2-opacity mdui-text-center">
-                <a href="https://github.com/LookBackInTheRain/oauth-boot-up" target="_blank">
-                    <span style="color: red">OAUTH-BOOT</span>
-                </a>
-            </div>
-        </div>
-
-        <div class="mdui-tab mdui-tab-centered " mdui-tab >
-            <a href="#id_login" class="mdui-ripple">账号密码登录</a>
-            <a href="#sms_login" class="mdui-ripple">短信登录</a>
-            <a href="#social_login" class="mdui-ripple">社交平台登录</a>
-        </div>
-
-        <div id="id_login" class="mdui-p-a-2  mdui-clearfix">
-
-            <form name="loginForm" method="post" th:action="${loginProcessUrl}">
-                <div class="mdui-container">
-                    <div class="mdui-textfield">
-                        <input class="mdui-textfield-input" name="username" type="text"  required placeholder="用户名**"/>
-                        <div class="mdui-textfield-error">必填*</div>
-                    </div>
-
-                    <div class="mdui-textfield">
-                        <input class="mdui-textfield-input" name="password" type="password" placeholder="密码**" required/>
-                        <div class="mdui-textfield-error">必填*</div>
-                    </div>
-
-                    <div class="mdui-row">
-                        <div class="mdui-col-md-9">
-                            <div class="mdui-textfield">
-                                <input class="mdui-textfield-input" th:name="${pictureCodeParameterName}" type="text" placeholder="验证码**" required/>
-                                <div class="mdui-textfield-error">必填*</div>
-                            </div>
-
-                        </div>
-                        <div class="mdui-col-md-3">
-                            <img id="p_code" onclick="changePictureCode()"
-                                 src="/picture_code"
-                                 alt="点击重新加载"
-                                 title="点击重新加载"
-                                 style="margin-top: 12px;cursor: pointer" >
-                        </div>
-                    </div>
-                    <br>
-                    <div>
-                        <button class="mdui-btn  mdui-btn-raised mdui-btn-block mdui-color-theme-accent mdui-ripple" type="submit">登 录</button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-
-        <div id="sms_login" class="mdui-p-a-2 content">
-
-            <form name="loginForm" method="post" th:action="${loginProcessUrl}">
-                <div class="mdui-container">
-                    <div class="mdui-textfield">
-                        <input class="mdui-textfield-input" type="text" placeholder="电话号码" required/>
-                        <div class="mdui-textfield-error">必填*</div>
-                    </div>
-
-                    <div class="mdui-row">
-                        <div class="mdui-col-md-9">
-                            <div class="mdui-textfield">
-                                <input class="mdui-textfield-input" type="text" placeholder="手机验证码" required/>
-                                <div class="mdui-textfield-error">必填*</div>
-                            </div>
-                        </div>
-                        <div class="mdui-col-md-3">
-                            <div class="mdui-textfield">
-                                <button class="mdui-btn mdui-btn-raised mdui-color-theme-accent">发送验证码</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button class="mdui-btn mdui-btn-raised mdui-btn-block mdui-ripple mdui-color-theme-accent" type="submit">
-                            登 录
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div id="social_login" class="mdui-p-a-2 content">
-
-            social_login  （Future）
-        </div>
-
-        <p class="mdui-p-a-2" style="color: red;text-align: center" th:if="${param.error}" th:text="${param.error}"></p>
-
-        <div class="mdui-text-center">
-            <p class="mdui-typo-body-1-opacity">
-                oauth-boot <a href="http://www.yuit.club" target="_blank">@yuit</a> 2019
-            </p>
-        </div>
-    </div>
-</div>-->
 <br><br>
 <div class="container">
-    <div class="card" >
-        <div class="car-header">
+    <div class="card-container">
+        <div class="card">
+            <div class="car-header">
 
-            <ul class="nav nav-tabs justify-content-center" role="tablist">
-                <li class="nav-item" >
-                    <a class="nav-link active" data-toggle="tab" href="#home" role="tab">密码登录</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#sms" role="tab">短信登录</a>
-                </li>
-                <li class="nav-item" >
-                    <a class="nav-link " data-toggle="tab" href="#social" role="tab">第三方</a>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <div class="tab-content text-center">
-                <div class="tab-pane active" id="home" role="tabpanel">
-                    <p>I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. So when you get something that has the name Kanye West on it, it’s supposed to be pushing the furthest possibilities. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus.</p>
+                <h2 class="header-title">
+                    <span class="name">OAUTH</span>
+                    <span class="separator">·</span>
+                    <span class="type">BOOT</span>
+                </h2>
+                <ul class="nav nav-tabs  justify-content-center" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">密码登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#sms" role="tab">短信登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " data-toggle="tab" href="#social" role="tab">第三方</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="content">
+                            <form th:action="${loginProcessUrl}" method="post">
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons users_single-02"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" id="user-name-label" required class="form-control"
+                                                   name="username" placeholder="用户名">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                                </div>
+                                            </div>
+                                            <input type="password" id="password-label" required name="password"
+                                                   class="form-control" placeholder="密码">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons design_image"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" required id="code-label" class="form-control"
+                                                   placeholder="验证码">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-3" style="text-align: left">
+                                        <img id="p_code" onclick="changePictureCode()"
+                                             src="/picture_code"
+                                             alt="点击重新加载"
+                                             title="点击重新加载"
+                                             style="cursor: pointer; height: 2.3rem;width: 100%">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <button type="submit" class="btn btn-primary btn-block">登 录</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" id="sms" role="tabpanel">
+                        <div class="content">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons tech_mobile"> </i>
+                                                </div>
+                                            </div>
+                                            <input type="text" placeholder="手机号" required class="form-control" name="mobile">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-5">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons ui-1_send"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" disabled class="form-control" required name="code" placeholder="验证码">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-7">
+                                            <button type="button" class="btn btn-outline-primary">获取验证码(180)</button>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <button type="submit" class="btn btn-primary btn-block"> 登 录 </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="social" role="tabpanel">
+                        social_login （Future）
+                    </div>
                 </div>
-                <div class="tab-pane" id="sms" role="tabpanel">
-                    <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that’s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
-                </div>
-                <div class="tab-pane" id="social" role="tabpanel">
+                <div class="footer">
+                    OAUTH·BOOT Create By <a href="https://github.com/LookBackInTheRain" target="_blank">@Yuit</a>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 
 <script type="application/javascript">
     function changePictureCode() {
-        var img=document.getElementById("p_code");
-        img.setAttribute("src","/picture_code?time="+new Date().getTime())
+        var img = document.getElementById("p_code");
+        img.setAttribute("src", "/picture_code?time=" + new Date().getTime())
     }
 </script>
 
