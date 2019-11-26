@@ -4,7 +4,6 @@ import club.yuit.oauth.boot.entity.Client;
 import club.yuit.oauth.boot.mapper.ClientMapper;
 import club.yuit.oauth.boot.service.IClientService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

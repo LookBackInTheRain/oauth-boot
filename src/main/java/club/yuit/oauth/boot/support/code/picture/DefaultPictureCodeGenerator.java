@@ -1,8 +1,12 @@
 package club.yuit.oauth.boot.support.code.picture;
 
 import club.yuit.oauth.boot.response.HttpResponse;
+import club.yuit.oauth.boot.support.BootSecurityProperties;
+import club.yuit.oauth.boot.support.DefaultBeanName;
 import club.yuit.oauth.boot.support.code.BootCodeService;
+import club.yuit.oauth.boot.support.code.VerificationCode;
 import club.yuit.oauth.boot.support.code.VerificationCodeGenerator;
+import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
@@ -18,19 +22,22 @@ import java.util.Random;
  * @author yuit
  * @date 2019/4/10 16:44
  */
-public class PictureCodeGenerator implements VerificationCodeGenerator<String> {
+@Component(DefaultBeanName.DEFAULT_PICTURE_CODE_GENERATOR_BEAN)
+public class DefaultPictureCodeGenerator implements VerificationCodeGenerator<BufferedImage, String> {
 
     private static final String SOURCE_CODES = "123456789ABCDEFGHIJKLMNOBQRSTUVWXYZ";
     private static int height = 40;
     private static int width = 95;
-    private static  Random random = new Random();
-    private HttpServletResponse response;
+    private static Random random = new Random();
+    private BootSecurityProperties properties;
+    private BootCodeService<String> codeService;
 
-    public PictureCodeGenerator(HttpServletResponse response) {
-        this.response = response;
+    public DefaultPictureCodeGenerator(BootSecurityProperties properties, BootCodeService<String> codeService) {
+        this.properties = properties;
+        this.codeService=codeService;
     }
 
-    public   void generator(BootCodeService<String> codeService) throws IOException {
+    public VerificationCode<BufferedImage> generator(String key) throws IOException {
 
         String code = createCodeStr(4);
 
@@ -38,13 +45,13 @@ public class PictureCodeGenerator implements VerificationCodeGenerator<String> {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Random rand = new Random();
         Graphics2D g2 = image.createGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         Color[] colors = new Color[5];
-        Color[] colorSpaces = new Color[] { Color.WHITE, Color.CYAN,
+        Color[] colorSpaces = new Color[]{Color.WHITE, Color.CYAN,
                 Color.GRAY, Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE,
-                Color.PINK, Color.YELLOW };
+                Color.PINK, Color.YELLOW};
         float[] fractions = new float[colors.length];
-        for(int i = 0; i < colors.length; i++){
+        for (int i = 0; i < colors.length; i++) {
             colors[i] = colorSpaces[rand.nextInt(colorSpaces.length)];
             fractions[i] = rand.nextFloat();
         }
@@ -56,7 +63,7 @@ public class PictureCodeGenerator implements VerificationCodeGenerator<String> {
         Color c = getRandColor(200, 250);
         // 设置背景色
         g2.setColor(c);
-        g2.fillRect(0, 2, width, height-4);
+        g2.fillRect(0, 2, width, height - 4);
 
         //绘制干扰线
         Random random = new Random();
@@ -82,23 +89,20 @@ public class PictureCodeGenerator implements VerificationCodeGenerator<String> {
         }
 
         g2.setColor(getRandColor(100, 160));
-        int fontSize = height-4;
+        int fontSize = height - 4;
         Font font = new Font("Algerian", Font.ITALIC, fontSize);
         g2.setFont(font);
         char[] chars = code.toCharArray();
-        for(int i = 0; i < verifySize; i++){
+        for (int i = 0; i < verifySize; i++) {
             AffineTransform affine = new AffineTransform();
-            affine.setToRotation(Math.PI / 4 * rand.nextDouble() * (rand.nextBoolean() ? 1 : -1), (width / verifySize) * i + fontSize/2, height/2);
+            affine.setToRotation(Math.PI / 4 * rand.nextDouble() * (rand.nextBoolean() ? 1 : -1), (width / verifySize) * i + fontSize / 2, height / 2);
             g2.setTransform(affine);
-            g2.drawChars(chars, i, 1, ((width-10) / verifySize) * i + 5, height/2 + fontSize/2 - 10);
+            g2.drawChars(chars, i, 1, ((width - 10) / verifySize) * i + 5, height / 2 + fontSize / 2 - 10);
         }
 
         g2.dispose();
-        OutputStream os=response.getOutputStream();
-        ImageIO.write(image, "jpg", os);
-        os.flush();
-        os.close();
-        codeService.setCodeValue("p_code",code);
+        codeService.setCodeValue(key, code);
+        return new VerificationCode<BufferedImage>(image, this.properties.getBaseLogin().getCodeExpireTime());
     }
 
     private static String createCodeStr(int codeLength) {

@@ -1,7 +1,9 @@
 package club.yuit.oauth.boot.filter;
 
 import club.yuit.oauth.boot.support.BootSecurityProperties;
-import club.yuit.oauth.boot.support.code.picture.SessionPictureCodeService;
+import club.yuit.oauth.boot.support.code.BootCodeService;
+import club.yuit.oauth.boot.support.code.SessionCodeService;
+import club.yuit.oauth.boot.support.properities.BootBaseLoginProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
@@ -23,11 +25,11 @@ public class BootPictureCodeAuthenticationFilter extends OncePerRequestFilter {
 
     private AntPathMatcher pathMatcher= new AntPathMatcher();
     private BootSecurityProperties properties;
-    private SessionPictureCodeService pictureCodeService;
+    private BootCodeService<String> bootCodeService;
 
-    public BootPictureCodeAuthenticationFilter(BootSecurityProperties properties, SessionPictureCodeService pictureCodeService) {
+    public BootPictureCodeAuthenticationFilter(BootSecurityProperties properties, BootCodeService<String> bootCodeService) {
         this.properties = properties;
-        this.pictureCodeService = pictureCodeService;
+        this.bootCodeService = bootCodeService;
     }
 
 
@@ -35,12 +37,12 @@ public class BootPictureCodeAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //本次请求url
         String path = request.getRequestURI();
+        BootBaseLoginProperties base = this.properties.getBaseLogin();
 
-
-        if (pathMatcher.match(properties.getLoginProcessUrl(),path)) {
+        if (pathMatcher.match(base.getLoginProcessUrl(),path)) {
 
             // 图片验证码值
-            String pCode = request.getParameter(properties.getPictureCodeParameterName());
+            String pCode = request.getParameter(base.getPictureCodeParameterName());
 
 
             if(StringUtils.isBlank(pCode)){
@@ -49,7 +51,7 @@ public class BootPictureCodeAuthenticationFilter extends OncePerRequestFilter {
             }
 
 
-            String pRealCode=this.pictureCodeService.getCodeValue(properties.getPictureCodeParameterName());
+            String pRealCode=this.bootCodeService.getCodeValue(base.getPictureCodeParameterName());
 
             if (pRealCode==null){
                 response.sendRedirect(properties.getLoginPage()+"?error=code is expire");

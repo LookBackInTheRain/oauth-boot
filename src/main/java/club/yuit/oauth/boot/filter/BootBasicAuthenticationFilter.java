@@ -51,7 +51,7 @@ public class BootBasicAuthenticationFilter extends OncePerRequestFilter {
 
         if (clientDetails == null) {
             BaseResponse bs = HttpResponse.baseResponse(HttpStatus.UNAUTHORIZED.value(), "请求中未包含客户端信息");
-            HttpUtils.writerError(bs, response);
+            HttpUtils.writer(bs, response);
             return;
         }
 
@@ -73,7 +73,7 @@ public class BootBasicAuthenticationFilter extends OncePerRequestFilter {
 
         if (!this.encoder.matches(clientDetails[1],details.getClientSecret())){
             BaseResponse bs = HttpResponse.baseResponse(HttpStatus.UNAUTHORIZED.value(), "client secret error!");
-            HttpUtils.writerError(bs, response);
+            HttpUtils.writer(bs, response);
             return;
         }
 

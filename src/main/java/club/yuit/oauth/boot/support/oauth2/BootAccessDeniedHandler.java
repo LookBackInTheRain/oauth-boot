@@ -21,6 +21,6 @@ import java.io.IOException;
 public class BootAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex) throws IOException, ServletException {
-        HttpUtils.writerError(HttpResponse.baseResponse(HttpStatus.FORBIDDEN.value(),"没有权限"),response);
+        HttpUtils.writer(HttpResponse.baseResponse(HttpStatus.FORBIDDEN.value(),"没有权限"),response);
     }
 }

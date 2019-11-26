@@ -13,12 +13,11 @@
 
 
 <body>
-<br><br>
+<br><br><br>
 <div class="container">
     <div class="card-container">
         <div class="card">
             <div class="car-header">
-
                 <h2 class="header-title">
                     <span class="name">OAUTH</span>
                     <span class="separator">·</span>
@@ -26,21 +25,25 @@
                 </h2>
                 <ul class="nav nav-tabs  justify-content-center" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab">密码登录</a>
+                        <a class="nav-link" th:classappend="${type.trim().equalsIgnoreCase('base')
+                        ||type.trim().equalsIgnoreCase('')}?'active':''"  href="/auth/login?type=base" >密码登录</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#sms" role="tab">短信登录</a>
+                        <a class="nav-link" th:classappend="${type.trim().equalsIgnoreCase('sms')}?'active'" href="/auth/login?type=sms">短信登录</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " data-toggle="tab" href="#social" role="tab">第三方</a>
+                        <a class="nav-link " th:classappend="${type.trim().equalsIgnoreCase('social')}?'active'" href="/auth/login?type=social" >第三方</a>
                     </li>
                 </ul>
             </div>
             <div class="card-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="home" role="tabpanel">
+                    <div class="tab-pane"
+                         th:classappend="${type.trim().equalsIgnoreCase('base')
+                        ||type.trim().equalsIgnoreCase('')}?'active':''"
+                         id="home" role="tabpanel">
                         <div class="content">
-                            <form th:action="${loginProcessUrl}" method="post">
+                            <form th:action="${base.getLoginProcessUrl()}" method="post">
                                 <div class="form-row">
                                     <div class="form-group col">
                                         <div class="input-group">
@@ -83,7 +86,7 @@
                                     </div>
                                     <div class="form-group col-3" style="text-align: left">
                                         <img id="p_code" onclick="changePictureCode()"
-                                             src="/picture_code"
+                                             th:src="${codePath}+'?ype=picture'"
                                              alt="点击重新加载"
                                              title="点击重新加载"
                                              style="cursor: pointer; height: 2.3rem;width: 100%">
@@ -98,9 +101,11 @@
                         </div>
 
                     </div>
-                    <div class="tab-pane" id="sms" role="tabpanel">
+                    <div class="tab-pane"
+                         th:classappend="${type.trim().equalsIgnoreCase('sms')}?'active'"
+                         id="sms" role="tabpanel" >
                         <div class="content">
-                            <form>
+                            <form th:action="${sms.getLoginProcessUrl()}" method="post">
                                 <div class="form-row">
                                     <div class="form-group col">
                                         <div class="input-group">
@@ -109,11 +114,10 @@
                                                     <i class="now-ui-icons tech_mobile"> </i>
                                                 </div>
                                             </div>
-                                            <input type="text" placeholder="手机号" required class="form-control" name="mobile">
+                                            <input type="text" placeholder="手机号" required class="form-control" th:name="${sms.getMobileParameterName()}">
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-row">
                                     <div class="form-group col-5">
                                         <div class="input-group">
@@ -122,7 +126,7 @@
                                                     <i class="now-ui-icons ui-1_send"></i>
                                                 </div>
                                             </div>
-                                            <input type="text"  class="form-control" required name="code" placeholder="验证码">
+                                            <input type="text" th:name="${sms.getCodeParameterName()}"  class="form-control" required name="code" placeholder="验证码">
                                         </div>
                                     </div>
                                     <div class="form-group col-7">
@@ -131,13 +135,15 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col">
-                                        <button type="submit" disabled class="btn btn-primary btn-block"> 登 录 </button>
+                                        <button type="submit"  class="btn btn-primary btn-block"> 登 录 </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="tab-pane" id="social" role="tabpanel">
+                    <div class="tab-pane"
+                         th:classappend="${type.trim().equalsIgnoreCase('social')}?'active'"
+                         id="social" role="tabpanel">
                         social_login （Future）
                     </div>
                 </div>
@@ -147,15 +153,17 @@
             </div>
         </div>
     </div>
-
 </div>
 
 
 <script type="application/javascript">
     function changePictureCode() {
         var img = document.getElementById("p_code");
-        img.setAttribute("src", "/picture_code?time=" + new Date().getTime())
+        img.setAttribute("src", "/auth/code/picture?time=" + new Date().getTime())
     }
+
+
+
 </script>
 
 <!--

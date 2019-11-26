@@ -11,17 +11,17 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public  class VerificationCode {
+public  class VerificationCode<T> {
 
-    private String code;
-    private Integer expirationTime;
+    private T content;
+    private long expirationTime;
 
     public VerificationCode() {
     }
 
 
-    public VerificationCode(String code, Integer expirationTime) {
-        this.code = code;
+    public VerificationCode(T content, long expirationTime) {
+        this.content = content;
         this.expirationTime = expirationTime;
     }
 }

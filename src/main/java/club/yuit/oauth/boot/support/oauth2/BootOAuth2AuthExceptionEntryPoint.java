@@ -25,7 +25,7 @@ import java.io.IOException;
 public class BootOAuth2AuthExceptionEntryPoint extends OAuth2AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-        HttpUtils.writerError(HttpResponse.baseResponse(HttpStatus.UNAUTHORIZED.value(),e.getMessage()),response);
+        HttpUtils.writer(HttpResponse.baseResponse(HttpStatus.UNAUTHORIZED.value(),e.getMessage()),response);
     }
 
 }

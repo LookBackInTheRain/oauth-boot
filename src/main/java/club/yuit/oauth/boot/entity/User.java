@@ -30,6 +30,7 @@ public class User implements UserDetails {
     private Boolean isLocked;
     private String password;
     private String gender;
+    private String mobile;
 
     @TableField(exist = false)
     private List<GrantedAuthority> authorities;

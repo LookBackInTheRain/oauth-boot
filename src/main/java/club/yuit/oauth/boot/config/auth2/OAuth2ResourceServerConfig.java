@@ -1,7 +1,7 @@
 package club.yuit.oauth.boot.config.auth2;
 
+import club.yuit.oauth.boot.support.BootSecurityProperties;
 import club.yuit.oauth.boot.support.oauth2.BootAccessDeniedHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -20,15 +20,17 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 @EnableResourceServer
 public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter{
 
-    @Autowired
     private AuthenticationEntryPoint point;
-
-    @Autowired
     private BootAccessDeniedHandler handler;
-
-    @Autowired
     private TokenStore tokenStore;
+    private BootSecurityProperties properties;
 
+    public OAuth2ResourceServerConfig(AuthenticationEntryPoint point, BootAccessDeniedHandler handler, TokenStore tokenStore, BootSecurityProperties properties) {
+        this.point = point;
+        this.handler = handler;
+        this.tokenStore = tokenStore;
+        this.properties = properties;
+    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -42,10 +44,14 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
         http
                 // Allows restricting access based upon the {@link HttpServletRequest} using
                 .authorizeRequests()
-                    .antMatchers("/favicon.ico","/oauth/**","/auth/**")
+                    .antMatchers("/favicon.ico","/oauth/**",
+                            properties.getBaseLogin().getLoginProcessUrl(),
+                            properties.getLoginPage(),
+                            properties.getSmsLogin().getLoginProcessUrl())
                     .permitAll()
                     .anyRequest()
                     .access("#oauth2.hasAnyScope('all','select')");

@@ -18,13 +18,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Setter
 public class SmsAuthenticationProvider implements AuthenticationProvider {
 
-    private UserDetailsService service;
-    private StringRedisTemplate template;
+    private UserDetailsService userDetailsService;
 
-    public SmsAuthenticationProvider(UserDetailsService service, StringRedisTemplate template) {
-        this.service = service;
-        this.template = template;
-    }
 
     public SmsAuthenticationProvider() {
     }
@@ -34,7 +29,7 @@ public class SmsAuthenticationProvider implements AuthenticationProvider {
 
         SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
 
-        UserDetails user = this.service.loadUserByUsername((String) authenticationToken.getPrincipal());
+        UserDetails user = this.userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
 
         if (user == null) {
             throw new InternalAuthenticationServiceException("无法获取用户信息");
@@ -42,7 +37,7 @@ public class SmsAuthenticationProvider implements AuthenticationProvider {
 
         SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken(user,user.getAuthorities());
 
-        authenticationResult.setDetails(authenticationToken.getCredentials());
+        authenticationResult.setDetails(authenticationToken.getDetails());
 
         return authenticationResult;
     }

@@ -1,5 +1,6 @@
 package club.yuit.oauth.boot.authentication.sms;
 
+import club.yuit.oauth.boot.support.BootSecurityProperties;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -23,9 +24,8 @@ public class SmsCodeAuthenticationFilter  extends AbstractAuthenticationProcessi
     private boolean postOnly = true;
 
 
-
-    public SmsCodeAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/authentication/mobile", "POST"));
+    public SmsCodeAuthenticationFilter(String path) {
+        super(new AntPathRequestMatcher(path, "POST"));
     }
 
     // ~ Methods

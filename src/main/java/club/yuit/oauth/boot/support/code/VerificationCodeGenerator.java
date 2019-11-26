@@ -9,12 +9,12 @@ import java.io.IOException;
  * @date 2018/10/19 17:42
  *
  */
-public interface VerificationCodeGenerator<T> {
+public interface VerificationCodeGenerator<O,T> {
 
     /**
      * 生成验证码
      * @return
      */
-    void generator(BootCodeService<T> codeService) throws Exception;
+    VerificationCode<O> generator(T key) throws Exception;
 
 }

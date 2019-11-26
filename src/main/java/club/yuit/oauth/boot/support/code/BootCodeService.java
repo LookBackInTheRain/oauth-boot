@@ -17,5 +17,5 @@ public interface BootCodeService<T> {
      * @param key
      * @param value
      */
-    void setCodeValue(String key, T value);
+    void setCodeValue(String key, T value, long expire);
 }

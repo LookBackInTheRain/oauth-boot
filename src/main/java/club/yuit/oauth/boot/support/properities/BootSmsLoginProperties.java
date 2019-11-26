@@ -10,10 +10,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class BootSmsCodeProperties {
+public class BootSmsLoginProperties {
 
     private Integer expirationTime = 240;
     private Integer length = 4;
-    private String mobileParameter = "mobile";
-
+    private String mobileParameterName = "mobile";
+    private String codeParameterName = "code";
+    private String loginProcessUrl="/authentication/mobile";
 }

@@ -1,4 +1,4 @@
-package club.yuit.oauth.boot.support.code.picture;
+package club.yuit.oauth.boot.support.code;
 
 import club.yuit.oauth.boot.support.code.BootCodeService;
 import org.springframework.stereotype.Component;
@@ -14,13 +14,12 @@ import java.util.Objects;
  * @author yuit
  * @date 2019/4/9 18:09
  */
-@Component
-public class SessionPictureCodeService implements BootCodeService<String> {
+public class SessionCodeService implements BootCodeService<String> {
 
 
     private HttpSession session;
 
-    public SessionPictureCodeService(HttpSession session) {
+    public SessionCodeService(HttpSession session) {
         this.session = session;
     }
 
@@ -30,7 +29,7 @@ public class SessionPictureCodeService implements BootCodeService<String> {
     }
 
     @Override
-    public void setCodeValue(String key, String value) {
+    public void setCodeValue(String key, String value,long expire) {
         this.session.setAttribute(key,value);
     }
 

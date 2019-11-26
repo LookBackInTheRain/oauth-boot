@@ -40,8 +40,8 @@ management:
     enabled: true
 
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper # mapper 文件路径
-  # type-aliases-package: club.yuit.boot.entity
+  mapper-locations: classpath:/mapper/*Mapper.xml # mapper 文件路径
+  type-aliases-package: club.yuit.oauth.boot.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
@@ -50,8 +50,11 @@ mybatis-plus:
       db-type: mysql  # 3.0 版本的必须配置 不然无法启动 nested exception is com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: GlobalConfigUtils setMetaData Fail !  Cause:java.lang.NullPointerException
 boot:
   oauth:
-    token-store-type: jwt
-    token-signing-key: 123123
+    oauth2:
+      token-store-type: jwt
+      token-signing-key: 123123
+    base-login:
+      login-page: /ooo
 
 
 

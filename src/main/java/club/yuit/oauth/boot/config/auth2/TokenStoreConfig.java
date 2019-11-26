@@ -49,7 +49,7 @@ public class TokenStoreConfig {
 
         TokenStore store = null;
 
-        switch (properties.getTokenStoreType()) {
+        switch (properties.getOauth2().getTokenStoreType()) {
             case jwt:
                 store = new JwtTokenStore(jwtAccessTokenConverter());
                 break;
@@ -77,9 +77,7 @@ public class TokenStoreConfig {
     @Primary
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-
-        converter.setSigningKey(properties.getTokenSigningKey());
-
+        converter.setSigningKey(properties.getOauth2().getTokenSigningKey());
         return converter;
     }
 }
