@@ -22,9 +22,7 @@ import org.springframework.context.annotation.Configuration;
 public class BootSecurityProperties {
 
 
-    /**
-     * 登录页面
-     */
+    // 登录页面
     private String loginPage="/auth/login";
 
     /**
@@ -32,10 +30,13 @@ public class BootSecurityProperties {
      */
     private String codePath = "/auth/code";
 
-    /**
-     * 验证码存储位置 {session}，{redis}
-     */
+
+     // 验证码存储位置 {session}，{redis}
     private CodeStoreType codeStoreType = CodeStoreType.session;
+
+
+    // redis 存储的验证码过期时间 单位 秒
+    private long codeExpireTime = 360;
 
 
     /**

@@ -45,14 +45,10 @@ public class BaseMainController {
 
 
     private BootSecurityProperties properties;
-    private BootCodeService codeService;
-    private Map<String, VerificationCodeGenerator> codeGenerators;
 
-    public BaseMainController(BootSecurityProperties properties,
-                              BootCodeService codeService, Map<String, VerificationCodeGenerator> codeGenerators) {
+
+    public BaseMainController(BootSecurityProperties properties) {
         this.properties = properties;
-        this.codeService = codeService;
-        this.codeGenerators = codeGenerators;
     }
 
     @GetMapping("${boot.oauth.login-page:/auth/login}")
@@ -75,95 +71,7 @@ public class BaseMainController {
         return "base-login";
     }
 
-    /**
-     * 网页
-     * @param response
-     * @param request
-     * @param type
-     * @throws Exception
-     */
-    @RequestMapping(value = "${boot.oauth.code-path:/auth/code}",produces = MediaType.TEXT_HTML_VALUE)
-    public void pictureCodeGenerateHtml(HttpServletResponse response,HttpServletRequest request, @RequestParam("type") String type,Model model) throws Exception {
 
-        String tmp = type.trim();
-
-        if (tmp.equals("picture")) {
-            String key = this.properties.getBaseLogin().getPictureCodeParameterName();
-
-            if (this.properties.getCodeStoreType()== CodeStoreType.redis){
-                key = UUID.randomUUID().toString();
-            }
-            VerificationCode<BufferedImage> pCode = ((DefaultPictureCodeGenerator)this.codeGenerators.get(DefaultBeanName.DEFAULT_PICTURE_CODE_GENERATOR_BEAN))
-                    .generator(key);
-
-            OutputStream os = response.getOutputStream();
-            ImageIO.write(pCode.getContent(), "jpg", os);
-            os.flush();
-            os.close();
-
-        } else if (tmp.equals("sms")) {
-
-            String key = request.getParameter("mobile");
-
-            VerificationCode<String> sCode = ((DefaultSmsCodeGenerator)this.codeGenerators.get(DefaultBeanName.DEFAULT_SMS_CODE_GENERATOR_BEAN))
-                    .generator(key);
-
-            response.setContentType("application/json");
-            Map<String,Object> map = new HashMap<>();
-            map.put("value",sCode);
-            map.put("key",key);
-
-            HttpUtils.writer(HttpResponse.simpleResponse(200,map),response);
-        }
-
-
-    }
-
-    /**
-     * 返回JSON,可用于前后端分离架构，只能使用redis存储验证码
-     * @param request
-     * @param type
-     * @throws Exception
-     */
-    @RequestMapping(value = "${boot.oauth.code-path:/auth/code}",produces = {MediaType.APPLICATION_JSON_UTF8_VALUE,MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public SimpleResponse<Map<String,Object>> pictureCodeGenerateJson(HttpServletRequest request, @RequestParam("type") String type) throws Exception {
-
-        String tmp = type.trim();
-        Map<String,Object> responseBoy= new HashMap<>();
-
-        if (tmp.equals("picture")) {
-
-            String key =  UUID.randomUUID().toString();
-
-            VerificationCode<BufferedImage> pCode = ((DefaultPictureCodeGenerator)this.codeGenerators.get(DefaultBeanName.DEFAULT_PICTURE_CODE_GENERATOR_BEAN))
-                    .generator(key);
-
-            ByteArrayOutputStream out= new ByteArrayOutputStream();
-
-            ImageIO.write(pCode.getContent(),"png",out);
-
-            byte[] bts =  out.toByteArray();
-
-            String base64_code = Base64.toBase64String(bts);
-            // 删除 \n \r
-            base64_code = base64_code.replaceAll("\n","").replace("\r","");
-
-            responseBoy.put("value",base64_code);
-            responseBoy.put("key",key);
-        } else if (tmp.equals("sms")) {
-
-            String key = request.getParameter("mobile");
-
-            VerificationCode<String> sCode = ((DefaultSmsCodeGenerator)this.codeGenerators.get(DefaultBeanName.DEFAULT_SMS_CODE_GENERATOR_BEAN))
-                    .generator(key);
-            responseBoy.put("value",sCode.getContent());
-            responseBoy.put("key",key);
-            responseBoy.put("expire",sCode.getExpirationTime());
-        }
-
-        return HttpResponse.successSimpleResponse(responseBoy);
-    }
 
 
 

@@ -53,8 +53,6 @@ boot:
     oauth2:
       token-store-type: jwt
       token-signing-key: 123123
-    base-login:
-      login-page: /ooo
-
+    code-store-type: redis
 
 

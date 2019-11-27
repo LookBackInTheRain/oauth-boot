@@ -102,7 +102,7 @@ public class DefaultPictureCodeGenerator implements VerificationCodeGenerator<Bu
 
         g2.dispose();
         codeService.setCodeValue(key, code);
-        return new VerificationCode<BufferedImage>(image, this.properties.getBaseLogin().getCodeExpireTime());
+        return new VerificationCode<BufferedImage>(image,properties.getCodeExpireTime());
     }
 
     private static String createCodeStr(int codeLength) {

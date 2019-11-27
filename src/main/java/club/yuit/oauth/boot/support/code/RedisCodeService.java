@@ -1,19 +1,20 @@
 package club.yuit.oauth.boot.support.code;
 
-import club.yuit.oauth.boot.support.BootSecurityProperties;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author yuit
  * @date 2019/11/20 15:37
  **/
-@Component
 public class RedisCodeService implements BootCodeService<String> {
 
     private StringRedisTemplate template;
-    public RedisCodeService(StringRedisTemplate template) {
+    private long  expire;
+    public RedisCodeService(StringRedisTemplate template, long expire) {
         this.template = template;
+        this.expire = expire;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class RedisCodeService implements BootCodeService<String> {
     }
 
     @Override
-    public void setCodeValue(String key, String value,long expire) {
-        this.template.opsForValue().set(key,value,expire);
+    public void setCodeValue(String key, String value) {
+        this.template.opsForValue().set(key,value,this.expire, TimeUnit.SECONDS);
     }
 }

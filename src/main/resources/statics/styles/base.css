@@ -1,3 +1,7 @@
+body {
+    background-color: #E9ECEF;
+    font-size: 18px !important;
+}
 input {
     height: 2.5rem !important;
     background-color: white !important;

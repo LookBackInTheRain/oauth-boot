@@ -9,7 +9,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -25,8 +24,6 @@ public class SmsSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
     private SmsAuthenticationProvider authenticationProvider;
     private SmsCodeAuthenticationFilter authenticationFilter;
     private SmsCodeCheckFilter codeCheckFilter;
-    private AuthenticationFailureHandler failureHandler;
-    private AuthenticationSuccessHandler successHandler;
 
 
     public SmsSecurityConfig(BootSmsUserDetailService userDetailsService,
@@ -34,11 +31,9 @@ public class SmsSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
                              @Autowired(required = false)
                                      BootLoginFailureHandler failureHandler,
                              @Autowired(required = false)
-                             AuthenticationSuccessHandler successHandler,
+                                     AuthenticationSuccessHandler successHandler,
                              BootSecurityProperties properties) {
 
-        this.failureHandler = failureHandler;
-        this.successHandler = successHandler;
 
         this.authenticationFilter = new SmsCodeAuthenticationFilter(properties.getSmsLogin().getLoginProcessUrl());
         this.authenticationFilter.setAuthenticationFailureHandler(failureHandler);
@@ -51,6 +46,7 @@ public class SmsSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
 
         this.codeCheckFilter = new SmsCodeCheckFilter(properties);
         this.codeCheckFilter.setFailureHandler(failureHandler);
+        this.codeCheckFilter.setTemplate(redisTemplate);
         this.codeCheckFilter.setSuccessHandler(successHandler);
 
 

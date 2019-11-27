@@ -19,7 +19,7 @@ import java.io.IOException;
  * @author yuit
  * @date 2019/4/9 16:10
  */
-@Component
+
 public class BootPictureCodeAuthenticationFilter extends OncePerRequestFilter {
 
 

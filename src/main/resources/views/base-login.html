@@ -8,6 +8,7 @@
     <script src="/statics/libs/now-ui/js/core/jquery.min.js" type="application/javascript"></script>
     <script src="/statics/libs/now-ui/js/core/bootstrap.min.js" type="application/javascript"></script>
     <script src="/statics/libs/now-ui/js/now-ui-kit.js" type="application/javascript"></script>
+    <script src="/statics/libs/layer/layer.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/statics/styles/base-login.css"/>
 </head>
 
@@ -85,8 +86,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-3" style="text-align: left">
-                                        <img id="p_code" onclick="changePictureCode()"
-                                             th:src="${codePath}+'?ype=picture'"
+                                        <img id="p_code"  onclick="loadImageCode()"
+                                             th:src="${codePath}+'?type=picture'"
                                              alt="点击重新加载"
                                              title="点击重新加载"
                                              style="cursor: pointer; height: 2.3rem;width: 100%">
@@ -130,7 +131,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-7">
-                                            <button type="button"  class="btn btn-outline-primary">获取验证码(180)</button>
+                                            <button type="button" id="sms_code_btn"  class="btn btn-outline-primary">获取验证码</button>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -157,34 +158,55 @@
 
 
 <script type="application/javascript">
-    function changePictureCode() {
-        var img = document.getElementById("p_code");
-        img.setAttribute("src", "/auth/code/picture?time=" + new Date().getTime())
+    loadImageCode();
+
+    function loadImageCode(){
+        $.ajax({
+            url:'/auth/code?type=picture',
+            contentType: 'application/json',
+            success:function (item) {
+                $("#p_code").attr("src",item.item.value)
+            }
+        })
+    }
+
+    $("#sms_code_btn").click(function () {
+        var _slf = $("#sms_code_btn");
+        var mobile = $('input[name=mobile]');
+        if (!/^1(3|4|5|7|8)\d{9}$/.test(mobile.val())){
+            layer.msg("手机号码不正确",{icon:5});
+            mobile.focus();
+            return;
+        }
+
+        $.ajax({
+            url:'/auth/code?type=sms&mobile='+mobile.val(),
+            contentType: 'application/json',
+            success:function (item) {
+                var expire = parseInt(item.item.expire)-20;
+                var time = setInterval(function () {
+                    if (expire > 0 ) {
+                        _slf.html("("+(expire--)+")秒")
+                        _slf.attr("disabled",true);
+                        mobile.attr("readonly",true);
+                    }else {
+                        _slf.html("获取验证码");
+                        _slf.removeAttr("disabled");
+                        mobile.removeAttr("readonly");
+                        clearInterval(time);
+                    }
+                },1000);
+            }
+        })
+    });
+
+    function smsCodeLoad() {
+       var btn= $("#sms_code_btn");
+
     }
 
 
-
 </script>
-
-<!--
-<div class="login-container" id="id_login">
-
-    <div class="form-container">
-        <p class="title">用户登录</p>
-        <form name="loginForm" method="post" th:action="${loginProcessUrl}">
-
-            <input type="text" name="username" placeholder="用户名"/>
-            <br>
-            <input type="password" name="password" placeholder="密码"/>
-            <br>
-            <button type="submit" class="btn">登 &nbsp;&nbsp; 录</button>
-        </form>
-        <p style="color: red" th:if="${param.error}">用户名或密码错误</p>
-
-    </div>
-
-
-</div>-->
 
 </body>
 </html>

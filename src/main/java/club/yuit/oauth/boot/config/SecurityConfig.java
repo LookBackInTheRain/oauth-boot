@@ -6,11 +6,16 @@ import club.yuit.oauth.boot.filter.BootPictureCodeAuthenticationFilter;
 import club.yuit.oauth.boot.support.BootLoginFailureHandler;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
 import club.yuit.oauth.boot.support.BootUserDetailService;
+import club.yuit.oauth.boot.support.code.BootCodeService;
+import club.yuit.oauth.boot.support.code.RedisCodeService;
+import club.yuit.oauth.boot.support.code.SessionCodeService;
 import club.yuit.oauth.boot.support.properities.BootBaseLoginProperties;
 import club.yuit.oauth.boot.support.properities.BootSmsLoginProperties;
+import club.yuit.oauth.boot.support.properities.CodeStoreType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,23 +37,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private BootSecurityProperties properties;
-
-
     private BootLoginFailureHandler handler;
-
-    private BootPictureCodeAuthenticationFilter pictureCodeAuthenticationFilter;
     private SmsSecurityConfig smsSecurityConfig;
 
 
     public SecurityConfig(BootUserDetailService userDetailService,
                           BootSecurityProperties properties,
                           BootLoginFailureHandler handler,
-                          BootPictureCodeAuthenticationFilter pictureCodeAuthenticationFilter,
+
                           SmsSecurityConfig smsSecurityConfig) {
         this.userDetailService = userDetailService;
         this.properties = properties;
         this.handler = handler;
-        this.pictureCodeAuthenticationFilter = pictureCodeAuthenticationFilter;
         this.smsSecurityConfig = smsSecurityConfig;
     }
 
@@ -127,6 +127,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public SmsAuthenticationProvider smsAuthenticationProvider (){
         return new SmsAuthenticationProvider();
+    }
+
+
+    @Bean
+    public BootCodeService codeService(StringRedisTemplate template){
+        if (this.properties.getCodeStoreType() == CodeStoreType.redis) {
+            return new RedisCodeService(template,properties.getCodeExpireTime());
+        }else {
+            return new SessionCodeService();
+        }
     }
 
 

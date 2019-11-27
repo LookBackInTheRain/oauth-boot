@@ -1,84 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{commons/head::header(~{::title},~{},~{},~{})}">
     <meta charset="UTF-8">
-    <title>授权</title>
+    <title>OAUTH·BOOT 授权</title>
+
 </head>
-<style>
 
-    html {
-        padding: 0px;
-        margin: 0px;
-    }
+<body>
+<nav class="navbar navbar-expand-lg bg-primary show">
+    <div class="container">
 
-    .title {
-        background-color: #E9686B;
-        height: 50px;
-        padding-left: 20%;
-        padding-right: 20%;
-        color: white;
-        line-height: 50px;
-        font-size: 18px;
-    }
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="#">OAUTH-BOOT 授权</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">文档</span></a>
+                </li>
+            </ul>
 
-    .title-left {
-        float: right;
-    }
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0 ">
 
-    .title-right {
-        float: left;
-    }
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        帮助
+                    </a>
+                </li>
 
-    .title-left a {
-        color: white;
-    }
-
-    .container {
-        clear: both;
-        text-align: center;
-    }
-
-    .btn {
-        width: 350px;
-        height: 35px;
-        line-height: 35px;
-        cursor: pointer;
-        margin-top: 20px;
-        border-radius: 3px;
-        background-color: #E9686B;
-        color: white;
-        border: none;
-        font-size: 15px;
-    }
-</style>
-<body style="margin: 0px">
-
-<div class="title">
-    <div class="title-right">OAUTH-BOOT 授权</div>
-    <div class="title-left">
-        <a href="#help">帮助</a>
-    </div>
-</div>
-<div class="container">
-
-    <h3 th:text="${clientId}+' 请求授权，该应用将获取你的以下信息'"></h3>
-
-    <p>昵称，头像和性别</p>
-
-    授权后表明你已同意 <a href="#boot" style="color: #E9686B">OAUTH-BOOT 服务协议</a>
-
-    <form method="post" action="/oauth/authorize">
-
-        <input type="hidden" name="user_oauth_approval" value="true">
-        <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}"/>
-
-        <div th:each="item:${scopes}">
-            <input type="radio" th:name="'scope.'+${item}" value="true" hidden="hidden" checked="checked"/>
+            </ul>
         </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <br>
+            <h3 style="text-align: center">确认授权</h3>
+        </div>
+        <div class="card-body" style="text-align: center">
+            <h3 th:text="${clientId}+' 请求授权，该应用将获取你的以下信息'"></h3>
+            <p>昵称，头像和性别</p>
+            授权后表明你已同意 <a href="#boot" style="color: #E9686B">OAUTH-BOOT 服务协议</a>
 
-        <button class="btn" type="submit"> 同意/授权</button>
+            <form method="post" action="/oauth/authorize">
 
-    </form>
+                <input type="hidden" name="user_oauth_approval" value="true">
+                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}"/>
+
+                <div th:each="item:${scopes}">
+                    <input type="radio" th:name="'scope.'+${item}" value="true" hidden="hidden" checked="checked"/>
+                </div>
+
+                <button class="btn" type="submit"> 同意/授权</button>
+
+            </form>
+        </div>
+    </div>
 
 </div>
 

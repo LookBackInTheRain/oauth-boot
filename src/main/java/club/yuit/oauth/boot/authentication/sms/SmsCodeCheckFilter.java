@@ -67,19 +67,19 @@ public class SmsCodeCheckFilter extends OncePerRequestFilter {
 
     private void check(HttpServletRequest request, HttpServletResponse response,FilterChain chain) throws VerificationCodeFailureException, IOException, ServletException {
 
-        String mobile = request.getParameter(properties.getSmsLogin().getCodeParameterName());
+        String mobile = request.getParameter(properties.getSmsLogin().getMobileParameterName());
         String code = request.getParameter(properties.getSmsLogin().getCodeParameterName());
         if (mobile.trim().length()==0) {
             throw new VerificationCodeFailureException("手机号不能为空");
         }
 
-        if (this.template.hasKey(mobile)) {
+        if (!this.template.hasKey(mobile)) {
             throw new VerificationCodeFailureException("验证码过期或手机号错误");
         }
 
        Long expireTime= this.template.getExpire(mobile);
 
-        if (expireTime==0){
+        if (expireTime<=0){
             throw new VerificationCodeFailureException("验证码过期");
         }
 

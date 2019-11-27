@@ -33,7 +33,7 @@ public class DefaultSmsCodeGenerator implements VerificationCodeGenerator<String
         VerificationCode<String> vc = new VerificationCode<>();
         String code = RandomStringUtils.random(6,CODE_STR);
         vc.setContent(code);
-        vc.setExpirationTime(properties.getSmsLogin().getExpirationTime());
+        vc.setExpirationTime(properties.getCodeExpireTime());
         codeService.setCodeValue(key,code);
 
         log.info("[OAUTH·BOOT]：登录验证码:{},{}分钟内有效",vc.getContent(),vc.getExpirationTime()/60);

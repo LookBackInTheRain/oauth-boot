@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 public class BootSmsLoginProperties {
 
-    private Integer expirationTime = 240;
     private Integer length = 4;
     private String mobileParameterName = "mobile";
     private String codeParameterName = "code";
