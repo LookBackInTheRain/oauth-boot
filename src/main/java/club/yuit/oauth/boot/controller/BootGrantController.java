@@ -1,10 +1,11 @@
 package club.yuit.oauth.boot.controller;
 
+import club.yuit.oauth.boot.support.BootSecurityProperties;
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -18,18 +19,24 @@ import java.util.Map;
 @SessionAttributes("authorizationRequest")
 public class BootGrantController {
 
+    private BootSecurityProperties properties;
+
+    public BootGrantController(BootSecurityProperties properties) {
+        this.properties = properties;
+    }
+
     @RequestMapping("/custom/confirm_access")
-    public ModelAndView getAccessConfirmation(Map<String, Object> model, HttpServletRequest request) throws Exception {
+    public String getAccessConfirmation(Map<String, Object> param, HttpServletRequest request, Model model) throws Exception {
 
-        AuthorizationRequest authorizationRequest = (AuthorizationRequest) model.get("authorizationRequest");
+        AuthorizationRequest authorizationRequest = (AuthorizationRequest) param.get("authorizationRequest");
+        if (authorizationRequest==null){
+            return "redirect:"+properties.getLoginPage();
+        }
 
-        ModelAndView view = new ModelAndView();
-        view.setViewName("base-grant");
+        model.addAttribute("clientId", authorizationRequest.getClientId());
+        model.addAttribute("scopes",authorizationRequest.getScope());
 
-        view.addObject("clientId", authorizationRequest.getClientId());
-        view.addObject("scopes",authorizationRequest.getScope());
-
-        return view;
+        return "base-grant";
     }
 
 }
