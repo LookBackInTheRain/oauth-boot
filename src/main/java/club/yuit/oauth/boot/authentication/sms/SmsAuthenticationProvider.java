@@ -2,6 +2,7 @@ package club.yuit.oauth.boot.authentication.sms;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -17,14 +18,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Setter
 public class SmsAuthenticationProvider implements AuthenticationProvider {
 
-    private UserDetailsService service;
+    private UserDetailsService userDetailsService;
+
+
+    public SmsAuthenticationProvider() {
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
 
-        UserDetails user = this.service.loadUserByUsername((String) authenticationToken.getPrincipal());
+        UserDetails user = this.userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
 
         if (user == null) {
             throw new InternalAuthenticationServiceException("无法获取用户信息");
@@ -32,7 +37,7 @@ public class SmsAuthenticationProvider implements AuthenticationProvider {
 
         SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken(user,user.getAuthorities());
 
-        authenticationResult.setDetails(authenticationToken.getCredentials());
+        authenticationResult.setDetails(authenticationToken.getDetails());
 
         return authenticationResult;
     }

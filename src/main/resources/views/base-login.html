@@ -1,150 +1,215 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="~{commons/head::header(~{::title},~{::link},~{},~{::script})}">
 
     <meta charset="UTF-8">
     <title>登录</title>
-    <link rel="icon" href="/favicon.ico"  type="image/x-icon"/>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="/statics/libs/mdui/css/mdui-1.css"/>
-    <link rel="stylesheet" href="/statics/libs/base.css"/>
-    <script type="application/javascript" src="/statics/libs/mdui/js/mdui.min.js"></script>
+    <link rel="shortcut icon" href="/statics/favicon.png" type="image/x-icon"/>
+    <script src="/statics/libs/now-ui/js/core/jquery.min.js" type="application/javascript"></script>
+    <script src="/statics/libs/now-ui/js/core/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/statics/libs/now-ui/js/now-ui-kit.js" type="application/javascript"></script>
+    <script src="/statics/libs/layer/layer.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/statics/styles/base-login.css"/>
 </head>
 
-<style>
-    .content{
-        border-top: 2px solid #8B8B8B;
-        height: 230px;
-    }
-    .input-txt{
-        line-height: 65px;
-    }
-</style>
 
-<body class="mdui-theme-primary-indigo mdui-theme-accent-pink mdui-loaded">
-<div class="mdui-container mdui-valign" style="height: 500px ">
-    <div class="mdui-col-md-6 mdui-col-offset-md-3 mdui-shadow-10 " >
-        <div>
-            <br>
-            <div class="mdui-typo-body-2-opacity mdui-text-center">
-                <a href="https://github.com/LookBackInTheRain/oauth-boot-up" target="_blank">
-                    <span style="color: red">OAUTH-BOOT-UP</span>
-                </a>
+<body>
+<br><br><br>
+<div class="container">
+    <div class="card-container">
+        <div class="card">
+            <div class="car-header">
+                <h2 class="header-title">
+                    <span class="name">OAUTH</span>
+                    <span class="separator">·</span>
+                    <span class="type">BOOT</span>
+                </h2>
+                <ul class="nav nav-tabs  justify-content-center" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${type.trim().equalsIgnoreCase('base')
+                        ||type.trim().equalsIgnoreCase('')}?'active':''"  href="/auth/login?type=base" >密码登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${type.trim().equalsIgnoreCase('sms')}?'active'" href="/auth/login?type=sms">短信登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " th:classappend="${type.trim().equalsIgnoreCase('social')}?'active'" href="/auth/login?type=social" >第三方</a>
+                    </li>
+                </ul>
             </div>
-        </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane"
+                         th:classappend="${type.trim().equalsIgnoreCase('base')
+                        ||type.trim().equalsIgnoreCase('')}?'active':''"
+                         id="home" role="tabpanel">
+                        <div class="content">
+                            <form th:action="${base.getLoginProcessUrl()}+'?type=base'" method="post">
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons users_single-02"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" id="user-name-label" th:value="${username}" required class="form-control"
+                                                   th:attr="name=${base.getUsernameParameterName()}" placeholder="用户名">
+                                        </div>
 
-        <div class="mdui-tab mdui-tab-centered " mdui-tab >
-            <a href="#id_login" class="mdui-ripple">账号密码登录</a>
-            <a href="#sms_login" class="mdui-ripple">短信登录</a>
-            <a href="#social_login" class="mdui-ripple">社交平台登录</a>
-        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                                                </div>
+                                            </div>
+                                            <input type="password" id="password-label" th:value="${password}" required name="password"
+                                                   th:attr="name=${base.getPasswordParameterName()}" class="form-control" placeholder="密码">
+                                        </div>
 
-        <div id="id_login" class="mdui-p-a-2 content mdui-clearfix">
-
-            <form name="loginForm" method="post" th:action="${loginProcessUrl}">
-                <div class="mdui-container">
-                    <div class="mdui-textfield">
-                        <input class="mdui-textfield-input" name="username" type="text"  required placeholder="用户名**"/>
-                    </div>
-
-                    <div class="mdui-textfield">
-                        <input class="mdui-textfield-input" name="password" type="password" placeholder="密码**" required/>
-                    </div>
-
-                    <div class="mdui-row">
-                        <div class="mdui-col-md-9">
-                            <div class="mdui-textfield">
-                                <input class="mdui-textfield-input" th:name="${pictureCodeParameterName}" type="text" placeholder="验证码**" required/>
-                            </div>
-
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-9">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons design_image"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" required id="code-label" th:attr="name=${base.getPictureCodeParameterName()}"  class="form-control"
+                                                   placeholder="验证码">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-3" style="text-align: left">
+                                        <img id="p_code"  onclick="loadImageCode()"
+                                             th:src="${codePath}+'?type=picture'"
+                                             alt="点击重新加载"
+                                             title="点击重新加载"
+                                             style="cursor: pointer; height: 2.3rem;width: 100%">
+                                    </div>
+                                    <input type="hidden" name="key" id="code_key"/>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <button type="submit" class="btn btn-primary btn-block">登 录</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="mdui-col-md-3">
-                            <img id="p_code" onclick="changePictureCode()"
-                                 src="/picture_code"
-                                 alt="点击重新加载"
-                                 title="点击重新加载"
-                                 style="margin-top: 12px;cursor: pointer" >
+
+                    </div>
+                    <div class="tab-pane"
+                         th:classappend="${type.trim().equalsIgnoreCase('sms')}?'active'"
+                         id="sms" role="tabpanel" >
+                        <div class="content">
+                            <form th:action="${sms.getLoginProcessUrl()}+'?type=sms'" method="post">
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons tech_mobile"> </i>
+                                                </div>
+                                            </div>
+                                            <input type="text" placeholder="手机号" required class="form-control" th:name="${sms.getMobileParameterName()}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-5">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="now-ui-icons ui-1_send"></i>
+                                                </div>
+                                            </div>
+                                            <input type="text" th:name="${sms.getCodeParameterName()}"  class="form-control" required name="code" placeholder="验证码">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-7">
+                                            <button type="button" id="sms_code_btn"  class="btn btn-outline-primary">获取验证码</button>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <button type="submit"  class="btn btn-primary btn-block"> 登 录 </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <br>
-                    <div>
-                        <button class="mdui-btn  mdui-btn-raised mdui-btn-block mdui-color-theme-accent mdui-ripple">登 录</button>
+                    <div class="tab-pane"
+                         th:classappend="${type.trim().equalsIgnoreCase('social')}?'active'"
+                         id="social" role="tabpanel">
+                        social_login （Future）
                     </div>
                 </div>
-            </form>
-
-        </div>
-
-        <div id="sms_login" class="mdui-p-a-2 content">
-
-            <form name="loginForm" method="post" th:action="${loginProcessUrl}">
-                <div class="mdui-container">
-                    <div class="mdui-textfield">
-                        <input class="mdui-textfield-input" type="text" placeholder="电话号码" required/>
-                        <div class="mdui-textfield-error">必填*</div>
-                    </div>
-
-                    <div class="mdui-row">
-                        <div class="mdui-col-md-9">
-                            <div class="mdui-textfield">
-                                <input class="mdui-textfield-input" type="text" placeholder="手机验证码" required/>
-                                <div class="mdui-textfield-error">必填*</div>
-                            </div>
-                        </div>
-                        <div class="mdui-col-md-3">
-
-                        </div>
-                    </div>
-
-                    <div>
-                        <button class="mdui-btn mdui-btn-raised mdui-btn-block mdui-ripple mdui-color-theme-accent" disabled>
-                            登 录 （Future）
-                        </button>
-                    </div>
+                <div class="footer">
+                    <p class="text-danger" th:text="${error}"></p>
+                    OAUTH·BOOT Create By <a href="https://github.com/LookBackInTheRain" target="_blank">@Yuit</a>
                 </div>
-            </form>
-        </div>
-        <div id="social_login" class="mdui-p-a-2 content">
-
-            social_login
-        </div>
-
-        <p class="mdui-p-a-2" style="color: red;text-align: center" th:if="${param.error}" th:text="${param.error}"></p>
-
-        <div class="mdui-text-center">
-            <p class="mdui-typo-body-1-opacity">
-                oauth-boot-up <a href="https://github.com/LookBackInTheRain" target="_blank">@yuit</a> 2019
-            </p>
+            </div>
         </div>
     </div>
 </div>
 
+
 <script type="application/javascript">
-    function changePictureCode() {
-        var img=document.getElementById("p_code");
-        img.setAttribute("src","/picture_code?time="+new Date().getTime())
+    loadImageCode();
+
+    function loadImageCode(){
+        $.ajax({
+            url:'/auth/code?type=picture',
+            contentType: 'application/json',
+            success:function (item) {
+                $("#p_code").attr("src",item.item.value)
+                $("#code_key").val(item.item.key)
+            }
+        })
     }
+
+    $("#sms_code_btn").click(function () {
+        var _slf = $("#sms_code_btn");
+        var mobile = $('input[name=mobile]');
+        if (!/^1(3|4|5|7|8)\d{9}$/.test(mobile.val())){
+            layer.msg("手机号码不正确",{icon:5});
+            mobile.focus();
+            return;
+        }
+
+        $.ajax({
+            url:'/auth/code?type=sms&mobile='+mobile.val(),
+            contentType: 'application/json',
+            success:function (item) {
+                var expire = parseInt(item.item.expire)-20;
+                var time = setInterval(function () {
+                    if (expire > 0 ) {
+                        _slf.html("("+(expire--)+")秒")
+                        _slf.attr("disabled",true);
+                        mobile.attr("readonly",true);
+                    }else {
+                        _slf.html("获取验证码");
+                        _slf.removeAttr("disabled");
+                        mobile.removeAttr("readonly");
+                        clearInterval(time);
+                    }
+                },1000);
+            }
+        })
+    });
+
+    function smsCodeLoad() {
+       var btn= $("#sms_code_btn");
+
+    }
+
+
 </script>
-
-<!--
-<div class="login-container" id="id_login">
-
-    <div class="form-container">
-        <p class="title">用户登录</p>
-        <form name="loginForm" method="post" th:action="${loginProcessUrl}">
-
-            <input type="text" name="username" placeholder="用户名"/>
-            <br>
-            <input type="password" name="password" placeholder="密码"/>
-            <br>
-            <button type="submit" class="btn">登 &nbsp;&nbsp; 录</button>
-        </form>
-        <p style="color: red" th:if="${param.error}">用户名或密码错误</p>
-
-    </div>
-
-
-</div>-->
 
 </body>
 </html>

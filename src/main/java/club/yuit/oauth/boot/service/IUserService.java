@@ -12,9 +12,6 @@ import java.util.List;
  **/
 public interface IUserService  extends IService<User> {
 
-
-
-
     User findByUserName(String userName);
-
+    User findUserByMobile(String mobile);
 }

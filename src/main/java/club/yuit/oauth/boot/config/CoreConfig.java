@@ -1,8 +1,15 @@
 package club.yuit.oauth.boot.config;
 
+import club.yuit.oauth.boot.support.BootSecurityProperties;
+import club.yuit.oauth.boot.support.code.BootCodeService;
+import club.yuit.oauth.boot.support.code.RedisCodeService;
+import club.yuit.oauth.boot.support.code.SessionCodeService;
+import club.yuit.oauth.boot.support.properities.BootBaseLoginProperties;
+import club.yuit.oauth.boot.support.properities.CodeStoreType;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +39,8 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class CoreConfig extends WebMvcConfigurationSupport {
+
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -80,6 +89,16 @@ public class CoreConfig extends WebMvcConfigurationSupport {
                 .contact(new Contact("yuit", "", "1239964852g@gmail.com"))
                 .version("1.0")
                 .build();
+    }
+
+
+    @Bean
+    public BootCodeService codeService(StringRedisTemplate template, BootSecurityProperties properties){
+        if (properties.getCodeStoreType() == CodeStoreType.redis) {
+            return  new RedisCodeService(template,properties.getCodeExpireTime());
+        }else {
+            return   new SessionCodeService();
+        }
     }
 
 

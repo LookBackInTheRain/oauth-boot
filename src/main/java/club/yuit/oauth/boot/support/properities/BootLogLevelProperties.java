@@ -15,7 +15,5 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class BootLogLevelProperties implements Serializable {
-
     private String level = "INFO";
-
 }

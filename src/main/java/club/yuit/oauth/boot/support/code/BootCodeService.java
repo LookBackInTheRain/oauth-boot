@@ -18,4 +18,13 @@ public interface BootCodeService<T> {
      * @param value
      */
     void setCodeValue(String key, T value);
+
+    /**
+     * 校验验证码
+     * @param key key
+     * @param value 值
+     * @param ignore 是否忽略大小写
+     * @return
+     */
+    boolean verification(String key,T value,boolean ignore);
 }

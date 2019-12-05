@@ -1,0 +1,33 @@
+
+.card-container {
+    padding: 0 10rem;
+}
+.header-title {
+    text-align: center;
+    margin: 0;
+    padding: 2rem;
+    background-color: #E9ECEF;
+    height: 8rem;
+    line-height: 4rem;
+    border-bottom-right-radius: 20rem;
+    border-top-left-radius: 20rem;
+}
+
+.header-title .name {
+    color: #11CDEF;
+}
+
+.header-title .separator {
+    color: #888888;
+}
+.header-title .type {
+    color: #888888;
+}
+
+.content {
+    padding: 0 3rem;
+}
+
+.footer {
+    text-align: center;
+}
