@@ -52,7 +52,7 @@ boot:
 
 #### 项目效果
 1. 自定义登录和授权页面效果图
-![自定义登录和授权页面效果图](https://img-blog.csdnimg.cn/20181102173054952.gif)
+![自定义登录和授权页面效果图](https://raw.githubusercontent.com/LookBackInTheRain/uit-blog/master/spring/OAuth2%E7%88%AC%E5%9D%91%E6%97%A5%E8%AE%B0/imgs/3/authorization.gif)
 
 #### 建表语句在src/doc/table.sql中
     
