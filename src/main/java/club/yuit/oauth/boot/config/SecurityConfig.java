@@ -3,19 +3,15 @@ package club.yuit.oauth.boot.config;
 import club.yuit.oauth.boot.authentication.sms.SmsAuthenticationProvider;
 import club.yuit.oauth.boot.authentication.sms.SmsSecurityConfig;
 import club.yuit.oauth.boot.filter.BootPictureCodeAuthenticationFilter;
-import club.yuit.oauth.boot.support.BootLoginFailureHandler;
+import club.yuit.oauth.boot.handler.BootLoginFailureHandler;
 import club.yuit.oauth.boot.support.BootSecurityProperties;
 import club.yuit.oauth.boot.support.BootUserDetailService;
 import club.yuit.oauth.boot.support.code.BootCodeService;
-import club.yuit.oauth.boot.support.code.RedisCodeService;
-import club.yuit.oauth.boot.support.code.SessionCodeService;
 import club.yuit.oauth.boot.support.properities.BootBaseLoginProperties;
 import club.yuit.oauth.boot.support.properities.BootSmsLoginProperties;
-import club.yuit.oauth.boot.support.properities.CodeStoreType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +19,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author yuit
@@ -34,22 +31,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private BootUserDetailService userDetailService;
-
-
     private BootSecurityProperties properties;
     private BootLoginFailureHandler handler;
     private SmsSecurityConfig smsSecurityConfig;
+    private BootPictureCodeAuthenticationFilter pictureCodeAuthenticationFilter;
 
 
     public SecurityConfig(BootUserDetailService userDetailService,
                           BootSecurityProperties properties,
                           BootLoginFailureHandler handler,
-
-                          SmsSecurityConfig smsSecurityConfig) {
+                          SmsSecurityConfig smsSecurityConfig,
+                          BootCodeService<String> codeService) {
         this.userDetailService = userDetailService;
         this.properties = properties;
         this.handler = handler;
         this.smsSecurityConfig = smsSecurityConfig;
+        pictureCodeAuthenticationFilter = new BootPictureCodeAuthenticationFilter(properties,codeService, handler);
     }
 
     /**
@@ -107,7 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.apply(this.smsSecurityConfig);
 
         // 用户密码验证之前校验验证码
-        //http.addFilterBefore(pictureCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(pictureCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 
@@ -130,14 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Bean
-    public BootCodeService codeService(StringRedisTemplate template){
-        if (this.properties.getCodeStoreType() == CodeStoreType.redis) {
-            return new RedisCodeService(template,properties.getCodeExpireTime());
-        }else {
-            return new SessionCodeService();
-        }
-    }
+
 
 
 

@@ -9,6 +9,7 @@ import club.yuit.oauth.boot.support.code.VerificationCode;
 import club.yuit.oauth.boot.support.code.VerificationCodeGenerator;
 import club.yuit.oauth.boot.support.code.picture.DefaultPictureCodeGenerator;
 import club.yuit.oauth.boot.support.code.sms.DefaultSmsCodeGenerator;
+import club.yuit.oauth.boot.support.properities.BootBaseLoginProperties;
 import club.yuit.oauth.boot.support.properities.CodeStoreType;
 import club.yuit.oauth.boot.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -51,11 +52,14 @@ public class BaseMainController {
         this.properties = properties;
     }
 
-    @GetMapping("${boot.oauth.login-page:/auth/login}")
+    @RequestMapping("${boot.oauth.login-page:/auth/login}")
     public String loginPage(Model model, HttpServletRequest request) {
-
+        BootBaseLoginProperties base = properties.getBaseLogin();
         String type = request.getParameter("type");
 
+        model.addAttribute("username", request.getParameter(base.getUsernameParameterName()));
+        model.addAttribute("password", request.getParameter(base.getPasswordParameterName()));
+        model.addAttribute("error", request.getAttribute("error"));
         if (type != null
                 && (type.equalsIgnoreCase("base")
                 || type.equalsIgnoreCase("sms")
@@ -70,10 +74,6 @@ public class BaseMainController {
         model.addAttribute("codePath", properties.getCodePath());
         return "base-login";
     }
-
-
-
-
 
 
 }

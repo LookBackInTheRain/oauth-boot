@@ -11,7 +11,8 @@ import java.util.concurrent.TimeUnit;
 public class RedisCodeService implements BootCodeService<String> {
 
     private StringRedisTemplate template;
-    private long  expire;
+    private long expire;
+
     public RedisCodeService(StringRedisTemplate template, long expire) {
         this.template = template;
         this.expire = expire;
@@ -24,6 +25,36 @@ public class RedisCodeService implements BootCodeService<String> {
 
     @Override
     public void setCodeValue(String key, String value) {
-        this.template.opsForValue().set(key,value,this.expire, TimeUnit.SECONDS);
+        this.template.opsForValue().set(key, value, this.expire, TimeUnit.SECONDS);
     }
+
+
+    @Override
+    public boolean verification(String key, String value, boolean ignore) {
+
+        if (value == null || value.trim().equals("")) {
+            return false;
+        }
+
+        Boolean has = this.template.hasKey(key);
+
+        if (has == null || !has) {
+            return false;
+        }
+
+        Long expire = this.template.getExpire(key);
+
+        if (expire == null || expire <= 0) {
+            return false;
+        }
+
+        String tmpValue = this.getCodeValue(key);
+
+        if (ignore) {
+            return value.equalsIgnoreCase(tmpValue);
+        }
+        return value.equals(tmpValue);
+    }
+
+
 }

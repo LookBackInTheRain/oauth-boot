@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{commons/head::header(~{::title},~{},~{},~{})}">
+<head th:replace="~{commons/head::header(~{::title},~{::link},~{},~{})}">
     <meta charset="UTF-8">
     <title>OAUTH·BOOT 授权</title>
-
+    <link rel="stylesheet" href="/statics/styles/base-grant.css"/>
 </head>
 
 <body>
@@ -33,26 +33,29 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <br>
-            <h3 style="text-align: center">确认授权</h3>
+            <h3 class="header">确认授权</h3>
         </div>
-        <div class="card-body" style="text-align: center">
-            <h3 th:text="${clientId}+' 请求授权，该应用将获取你的以下信息'"></h3>
-            <p>昵称，头像和性别</p>
-            授权后表明你已同意 <a href="#boot" style="color: #E9686B">OAUTH-BOOT 服务协议</a>
+        <div class="card-body">
+            <div class="container" style="text-align: center">
+                <h5>
+                    <span th:text="${client.name}" class="text-primary"></span>
+                    请求授权，该应用将获取你的以下信息
+                </h5>
+                   <p> 昵称，性别，头像</p>
+                授权后表明你已同意 <a href="#boot" style="color: #E9686B">OAUTH-BOOT 服务协议</a>
+                <form method="post" action="/oauth/authorize">
 
-            <form method="post" action="/oauth/authorize">
+                    <input type="hidden" name="user_oauth_approval" value="true">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}"/>
 
-                <input type="hidden" name="user_oauth_approval" value="true">
-                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}"/>
+                    <div th:each="item:${scopes}">
+                        <input type="radio" th:name="'scope.'+${item}" value="true" hidden="hidden" checked="checked"/>
+                    </div>
+                    <br>
+                    <button class="btn btn-outline-primary" type="submit"> 同意/授权</button>
 
-                <div th:each="item:${scopes}">
-                    <input type="radio" th:name="'scope.'+${item}" value="true" hidden="hidden" checked="checked"/>
-                </div>
-
-                <button class="btn" type="submit"> 同意/授权</button>
-
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 

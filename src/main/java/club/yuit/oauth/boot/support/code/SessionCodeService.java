@@ -45,6 +45,20 @@ public class SessionCodeService implements BootCodeService<String> {
         session.setAttribute(key,value);
     }
 
+    @Override
+    public boolean verification(String key, String value,boolean ignore) {
+
+        if (value==null||value.trim().equals("")){
+            return false;
+        }
+
+        String valueTmp =this.getCodeValue(key);
+        if (ignore){
+            return value.equalsIgnoreCase(valueTmp);
+        }
+        return value.equals(valueTmp);
+    }
+
     private HttpSession getSession() {
 
        HttpServletRequest request =  ((ServletRequestAttributes)(RequestContextHolder.getRequestAttributes())).getRequest();

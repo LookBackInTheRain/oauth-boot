@@ -44,7 +44,7 @@
                         ||type.trim().equalsIgnoreCase('')}?'active':''"
                          id="home" role="tabpanel">
                         <div class="content">
-                            <form th:action="${base.getLoginProcessUrl()}" method="post">
+                            <form th:action="${base.getLoginProcessUrl()}+'?type=base'" method="post">
                                 <div class="form-row">
                                     <div class="form-group col">
                                         <div class="input-group">
@@ -53,8 +53,8 @@
                                                     <i class="now-ui-icons users_single-02"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" id="user-name-label" required class="form-control"
-                                                   name="username" placeholder="用户名">
+                                            <input type="text" id="user-name-label" th:value="${username}" required class="form-control"
+                                                   th:attr="name=${base.getUsernameParameterName()}" placeholder="用户名">
                                         </div>
 
                                     </div>
@@ -67,8 +67,8 @@
                                                     <i class="now-ui-icons ui-1_lock-circle-open"></i>
                                                 </div>
                                             </div>
-                                            <input type="password" id="password-label" required name="password"
-                                                   class="form-control" placeholder="密码">
+                                            <input type="password" id="password-label" th:value="${password}" required name="password"
+                                                   th:attr="name=${base.getPasswordParameterName()}" class="form-control" placeholder="密码">
                                         </div>
 
                                     </div>
@@ -81,7 +81,7 @@
                                                     <i class="now-ui-icons design_image"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" required id="code-label" class="form-control"
+                                            <input type="text" required id="code-label" th:attr="name=${base.getPictureCodeParameterName()}"  class="form-control"
                                                    placeholder="验证码">
                                         </div>
                                     </div>
@@ -92,6 +92,7 @@
                                              title="点击重新加载"
                                              style="cursor: pointer; height: 2.3rem;width: 100%">
                                     </div>
+                                    <input type="hidden" name="key" id="code_key"/>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col">
@@ -106,7 +107,7 @@
                          th:classappend="${type.trim().equalsIgnoreCase('sms')}?'active'"
                          id="sms" role="tabpanel" >
                         <div class="content">
-                            <form th:action="${sms.getLoginProcessUrl()}" method="post">
+                            <form th:action="${sms.getLoginProcessUrl()}+'?type=sms'" method="post">
                                 <div class="form-row">
                                     <div class="form-group col">
                                         <div class="input-group">
@@ -149,6 +150,7 @@
                     </div>
                 </div>
                 <div class="footer">
+                    <p class="text-danger" th:text="${error}"></p>
                     OAUTH·BOOT Create By <a href="https://github.com/LookBackInTheRain" target="_blank">@Yuit</a>
                 </div>
             </div>
@@ -166,6 +168,7 @@
             contentType: 'application/json',
             success:function (item) {
                 $("#p_code").attr("src",item.item.value)
+                $("#code_key").val(item.item.key)
             }
         })
     }

@@ -15,9 +15,11 @@ import javax.validation.constraints.NotNull;
 @Data
 @TableName("clients")
 public class Client  {
-
     @TableId
     private String id;
+
+    private String name;
+
     @TableField("clientId")
     @NotNull
     private String clientId;
