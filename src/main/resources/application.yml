@@ -31,7 +31,7 @@ spring:
     suffix: .html
     cache: false
   mvc:
-    throw-exception-if-no-handler-found: true
+    throw-exception-if-no-handler-found: false
 
 
 #logging.level.org.springframework.security: DEBUG
@@ -47,7 +47,7 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: uuid
-      db-type: mysql  # 3.0 版本的必须配置 不然无法启动 nested exception is com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Error: GlobalConfigUtils setMetaData Fail !  Cause:java.lang.NullPointerException
+      db-type: mysql
 boot:
   oauth:
     oauth2:

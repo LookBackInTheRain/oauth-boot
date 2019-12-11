@@ -1,4 +1,4 @@
-package club.yuit.oauth.boot.controller;
+package club.yuit.oauth.boot.controller.boot;
 
 import club.yuit.oauth.boot.entity.Client;
 import club.yuit.oauth.boot.response.BaseResponse;

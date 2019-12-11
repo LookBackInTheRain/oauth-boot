@@ -53,8 +53,8 @@ public class OAuth2ResourceServerConfig  extends ResourceServerConfigurerAdapter
                             properties.getLoginPage(),
                             properties.getSmsLogin().getLoginProcessUrl())
                     .permitAll()
-                    .anyRequest()
-                    .access("#oauth2.hasAnyScope('all','select')");
+                    .anyRequest().permitAll();
+                    //.access("#oauth2.hasAnyScope('all','select')");
     }
 
 

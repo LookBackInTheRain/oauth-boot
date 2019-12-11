@@ -38,7 +38,7 @@ import static club.yuit.oauth.boot.response.HttpResponse.simpleResponse;
  * @date  2018/3/30 20:37
  *
  */
-@RestControllerAdvice
+//@RestControllerAdvice
 public final class ExceptionAdviceHandler {
 
     private final static String SERVER_ERROR_TXT = "服务器内部错误";
