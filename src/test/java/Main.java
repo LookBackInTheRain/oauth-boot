@@ -3,9 +3,13 @@ import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.security.core.parameters.P;
 import org.springframework.util.AntPathMatcher;
 
+import javax.servlet.ServletContext;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @author yuit
@@ -17,92 +21,25 @@ public class Main {
 
 
 
-    public static void main(String[] args) throws InterruptedException {
-        Queue<Integer> res = new LinkedList<>();
-        Producer p =  new Producer(res);
-        Consumer c = new Consumer(res);
+    public static void main(String[] args) {
 
-        Thread pth = new Thread(p);
-        Thread cth = new Thread(c);
-
-        pth.start();
-        cth.start();
-
-        pth.join();
-        cth.join();
+       Main m = new Main();
+       m.tb().start("testMian");
 
     }
 
-
-}
-
-class Producer implements Runnable {
-
-    private Queue<Integer> res;
-
-    public Producer(Queue<Integer> res) {
-        this.res = res;
+    private void self(String a){
+        System.out.println("a"+a);
     }
 
-    @Override
-    public void run() {
 
-       synchronized (res){
-           if (res.size()>=5) {
-               res.notify();
-               try {
-                   res.wait();
-               } catch (InterruptedException e) {
-                   e.printStackTrace();
-               }
-           }
-
-           res.add(1);
-           res.notify();
-           try {
-               Thread.sleep(1*1000);
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-
-           System.out.println("Producer: "+ res);
-
-           run();
-       }
-
+    private TestFunction tb(){
+        return this::self;
     }
 }
 
-
-class Consumer implements Runnable {
-    private Queue<Integer> res;
-
-    public Consumer(Queue<Integer> res) {
-        this.res = res;
-    }
-
-    @Override
-    public void run() {
-        synchronized (res){
-            if (res.size()==0) {
-                res.notify();
-                try {
-                    res.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            res.poll();
-            res.notify();
-            try {
-                Thread.sleep(1*1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            System.out.println("Consumer: "+ res);
-
-            run();
-        }
-    }
+@FunctionalInterface
+interface TestFunction {
+    void start(String a);
 }
+
