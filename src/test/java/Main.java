@@ -17,29 +17,41 @@ import java.util.*;
  * @description
  * @modify
  */
-public class Main {
+public class Main  extends A{
 
+    int a;
 
 
     public static void main(String[] args) {
+        Main m = new Main();
 
-       Main m = new Main();
-       m.tb().start("testMian");
-
+        m.test1();
     }
 
-    private void self(String a){
-        System.out.println("a"+a);
+    private void self(String a) {
+        System.out.println("a" + a);
     }
 
 
-    private TestFunction tb(){
+    private TestFunction tb() {
         return this::self;
     }
+
+    private void test (TestFunction c) {
+        System.out.println(c);
+    }
+
+    private void test1(){
+        this.test(this.tb());
+    }
+
+}
+
+class A {
+
 }
 
 @FunctionalInterface
 interface TestFunction {
     void start(String a);
 }
-
