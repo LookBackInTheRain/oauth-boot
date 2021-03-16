@@ -1,4 +1,7 @@
-use boot;
+
+
+
+use `test-boot`;
 
 -- 创建用户表
 create table user

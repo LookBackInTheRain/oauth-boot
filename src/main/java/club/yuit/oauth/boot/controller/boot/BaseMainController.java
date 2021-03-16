@@ -75,5 +75,10 @@ public class BaseMainController {
         return "base-login";
     }
 
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
+
 
 }
